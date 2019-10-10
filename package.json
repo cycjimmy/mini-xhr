@@ -1,16 +1,15 @@
 {
-  "name": "mini-xhr",
-  "version": "1.0.1",
+  "name": "@cycjimmy/mini-xhr",
+  "version": "2.0.0",
   "description": "xmlHttpRequest in promise",
   "main": "build/mini-xhr.min.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --display-modules --display-reasons --display-error-details --watch --color",
-    "build": "cross-env NODE_ENV=production webpack --progress --optimize-minimize && webpack --progress --display-modules --display-reasons --display-error-details --color",
-    "prepare": "npm run build"
+    "build": "cross-env NODE_ENV=production webpack --progress --optimize-minimize && webpack --progress --display-modules --display-reasons --display-error-details --color"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cycdpo/mini-xhr.git"
+    "url": "git+https://github.com/cycjimmy/mini-xhr.git"
   },
   "keywords": [
     "mini",
@@ -20,9 +19,9 @@
   "author": "cycjimmy <cycjimmy@gmail.com> (https://github.com/cycjimmy)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cycdpo/mini-xhr/issues"
+    "url": "https://github.com/cycjimmy/mini-xhr/issues"
   },
-  "homepage": "https://github.com/cycdpo/mini-xhr#readme",
+  "homepage": "https://github.com/cycjimmy/mini-xhr#readme",
   "devDependencies": {
     "@babel/core": "^7.6.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -40,6 +39,5 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9"
-  },
-  "dependencies": {}
+  }
 }

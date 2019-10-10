@@ -1,4 +1,4 @@
-# mini-xhr
+# Mini XHR
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -8,35 +8,35 @@
 [![jsdelivr][jsdelivr-image]][jsdelivr-url]
 [![npm license][license-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/mini-xhr.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/mini-xhr
-[travis-image]: https://img.shields.io/travis/cycdpo/mini-xhr.svg?style=flat-square
-[travis-url]: https://travis-ci.org/cycdpo/mini-xhr
-[david-image]: https://img.shields.io/david/cycdpo/mini-xhr.svg?style=flat-square
-[david-url]: https://david-dm.org/cycdpo/mini-xhr
-[david-dev-image]: https://david-dm.org/cycdpo/mini-xhr/dev-status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/cycdpo/mini-xhr?type=dev
-[download-image]: https://img.shields.io/npm/dm/mini-xhr.svg?style=flat-square
-[download-url]: https://npmjs.org/package/mini-xhr
-[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/mini-xhr/badge
-[jsdelivr-url]: https://www.jsdelivr.com/package/npm/mini-xhr
-[license-image]: https://img.shields.io/npm/l/mini-xhr.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/@cycjimmy/mini-xhr.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@cycjimmy/mini-xhr
+[travis-image]: https://img.shields.io/travis/cycjimmy/mini-xhr.svg?style=flat-square
+[travis-url]: https://travis-ci.org/cycjimmy/mini-xhr
+[david-image]: https://img.shields.io/david/cycjimmy/mini-xhr.svg?style=flat-square
+[david-url]: https://david-dm.org/cycjimmy/mini-xhr
+[david-dev-image]: https://david-dm.org/cycjimmy/mini-xhr/dev-status.svg?style=flat-square
+[david-dev-url]: https://david-dm.org/cycjimmy/mini-xhr?type=dev
+[download-image]: https://img.shields.io/npm/dm/@cycjimmy/mini-xhr.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@cycjimmy/mini-xhr
+[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/@cycjimmy/mini-xhr/badge
+[jsdelivr-url]: https://www.jsdelivr.com/package/npm/@cycjimmy/mini-xhr
+[license-image]: https://img.shields.io/npm/l/@cycjimmy/mini-xhr.svg?style=flat-square
 
 ## Install
 ```shell
 # via npm
-$ npm install mini-xhr --save
+$ npm install @cycjimmy/mini-xhr --save
 
 # or via yarn
-$ yarn add mini-xhr
+$ yarn add @cycjimmy/mini-xhr
 ```
 
 ## Usage
 ```javascript
-import miniXhr from 'mini-xhr';
+import miniXhr from '@cycjimmy/mini-xhr';
 
 # OR
-const miniXhr = require('mini-xhr');
+const miniXhr = require('@cycjimmy/mini-xhr');
 
 miniXhr.get(url [, settings])
   .then((data) => {
@@ -94,6 +94,6 @@ miniXhr.get(url [, settings])
 ## CDN
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/mini-xhr@1/build/mini-xhr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@1/build/mini-xhr.min.js"></script>
 ```
 
