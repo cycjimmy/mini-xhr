@@ -2,10 +2,17 @@
   "name": "@cycjimmy/mini-xhr",
   "version": "2.0.2",
   "description": "xmlHttpRequest in promise",
-  "main": "build/mini-xhr.min.js",
+  "main": "dist/mini-xhr.cjs.js",
+  "module": "dist/mini-xhr.esm.js",
+  "browser": "dist/mini-xhr.umd.min.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack --display-modules --display-reasons --display-error-details --watch --color",
-    "build": "cross-env NODE_ENV=production webpack --progress --optimize-minimize && webpack --progress --display-modules --display-reasons --display-error-details --color"
+    "test": "jest --color",
+    "coveralls": "jest --color --coverage",
+    "lint": "eslint -c .eslintrc 'src/**/*.js'",
+    "lint:fix": "eslint --fix -c .eslintrc 'src/**/*.js' --fix",
+    "build": "npm run build:prod:umd && npm run build:prod",
+    "build:prod": "cross-env NODE_ENV=production rollup -c rollup/rollup.config.prod.js",
+    "build:prod:umd": "cross-env NODE_ENV=production rollup -c rollup/rollup.config.dev.js"
   },
   "repository": {
     "type": "git",
@@ -22,28 +29,29 @@
     "url": "https://github.com/cycjimmy/mini-xhr/issues"
   },
   "homepage": "https://github.com/cycjimmy/mini-xhr#readme",
-  "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "^7.6.3",
-    "@cycjimmy/config-lib": "^1.2.0",
-    "babel-loader": "^8.0.6",
-    "browser-sync": "^2.26.7",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "clean-webpack-plugin": "^3.0.0",
-    "cross-env": "^6.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "html-webpack-plugin": "^3.2.0",
-    "pug": "^2.0.4",
-    "pug-loader": "^2.4.0",
-    "regenerator-runtime": "^0.13.3",
-    "terser-webpack-plugin": "^2.2.1",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+  "files": [
+    "/dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.7.1",
+    "@cycjimmy/config-lib": "^1.5.0",
+    "babel-jest": "^24.9.0",
+    "coveralls": "^3.0.7",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-rollup": "^0.1.0",
+    "jest": "^24.9.0",
+    "rollup": "^1.26.5",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.2"
   }
 }

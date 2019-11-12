@@ -1,28 +1,21 @@
 # Mini XHR
-
-[![NPM version][npm-image]][npm-url]
+![][workflows-badge-image]
 [![build status][travis-image]][travis-url]
-[![David deps][david-image]][david-url]
-[![devDependencies Status][david-dev-image]][david-dev-url]
-[![npm download][download-image]][download-url]
-[![jsdelivr][jsdelivr-image]][jsdelivr-url]
+[![libraries dependency status][libraries-status-image]][libraries-status-url]
+[![libraries sourcerank][libraries-sourcerank-image]][libraries-sourcerank-url]
+[![Coverage Status][coverage-image]][coverage-url]
+[![Release date][release-date-image]][release-url]
+[![rollup][rollup-image]][rollup-url]
+[![semantic-release][semantic-image]][semantic-url]
+[![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/@cycjimmy/mini-xhr.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@cycjimmy/mini-xhr
-[travis-image]: https://img.shields.io/travis/cycjimmy/mini-xhr.svg?style=flat-square
-[travis-url]: https://travis-ci.org/cycjimmy/mini-xhr
-[david-image]: https://img.shields.io/david/cycjimmy/mini-xhr.svg?style=flat-square
-[david-url]: https://david-dm.org/cycjimmy/mini-xhr
-[david-dev-image]: https://david-dm.org/cycjimmy/mini-xhr/dev-status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/cycjimmy/mini-xhr?type=dev
-[download-image]: https://img.shields.io/npm/dm/@cycjimmy/mini-xhr.svg?style=flat-square
-[download-url]: https://npmjs.org/package/@cycjimmy/mini-xhr
-[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/@cycjimmy/mini-xhr/badge
-[jsdelivr-url]: https://www.jsdelivr.com/package/npm/@cycjimmy/mini-xhr
-[license-image]: https://img.shields.io/npm/l/@cycjimmy/mini-xhr.svg?style=flat-square
 
 ## Install
+[![NPM version][npm-image]][npm-url]
+[![NPM bundle size][npm-bundle-size-image]][npm-url]
+[![npm download][download-image]][download-url]
+
 ```shell
 # via npm
 $ npm install @cycjimmy/mini-xhr --save
@@ -77,7 +70,7 @@ miniXhr.get(url [, settings])
 
 ### Use in browser: E.g.
 ```html
-<script src="mini-xhr.min.js"></script>
+<script src="mini-xhr.umd.min.js"></script>
 <script>
   miniXhr.jsonp('/getData' , {
     data: {
@@ -92,8 +85,47 @@ miniXhr.get(url [, settings])
 ```
 
 ## CDN
+[![jsdelivr][jsdelivr-image]][jsdelivr-url]
+
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@2/build/mini-xhr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@3/dist/mini-xhr.umd.min.js"></script>
 ```
+
+<!-- Links: -->
+[npm-image]: https://img.shields.io/npm/v/@cycjimmy/mini-xhr
+[npm-url]: https://npmjs.org/package/@cycjimmy/mini-xhr
+[npm-bundle-size-image]: https://img.shields.io/bundlephobia/min/@cycjimmy/mini-xhr
+
+[download-image]: https://img.shields.io/npm/dt/@cycjimmy/mini-xhr
+[download-url]: https://npmjs.org/package/@cycjimmy/mini-xhr
+
+[jsdelivr-image]: https://img.shields.io/jsdelivr/npm/hy/@cycjimmy/mini-xhr
+[jsdelivr-url]: https://www.jsdelivr.com/package/npm/@cycjimmy/mini-xhr
+
+[workflows-badge-image]: https://github.com/cycjimmy/mini-xhr/workflows/Test%20CI/badge.svg
+[travis-image]: https://img.shields.io/travis/cycjimmy/mini-xhr
+[travis-url]: https://travis-ci.org/cycjimmy/mini-xhr
+
+[libraries-status-image]: https://img.shields.io/librariesio/release/npm/@cycjimmy/mini-xhr
+[libraries-sourcerank-image]: https://img.shields.io/librariesio/sourcerank/npm/@cycjimmy/mini-xhr
+[libraries-status-url]: https://libraries.io/github/cycjimmy/mini-xhr
+[libraries-sourcerank-url]: https://libraries.io/npm/@cycjimmy%2Fmini-xhr
+
+[coverage-image]: https://img.shields.io/coveralls/github/cycjimmy/mini-xhr
+[coverage-url]: https://coveralls.io/github/cycjimmy/mini-xhr
+
+[release-date-image]: https://img.shields.io/github/release-date/cycjimmy/mini-xhr
+[release-url]: https://github.com/cycjimmy/mini-xhr/releases
+
+[rollup-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/mini-xhr/dev/rollup
+[rollup-url]: https://github.com/rollup/rollup
+
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
+
+[jest-image]: https://img.shields.io/badge/tested_with-jest-99424f.svg
+[jest-url]: https://github.com/facebook/jest
+
+[license-image]: https://img.shields.io/npm/l/@cycjimmy/mini-xhr
 
