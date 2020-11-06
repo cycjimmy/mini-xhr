@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/cycjimmy/mini-xhr/compare/v3.0.0...v3.0.1) (2020-11-06)
+
+
+### Bug Fixes
+
+* **deps:** upgrade dev dependencies ([e06ab21](https://github.com/cycjimmy/mini-xhr/commit/e06ab215440ed6dc208ddc8b35dee104623cd5da))
+
 # [3.0.0](https://github.com/cycjimmy/mini-xhr/compare/v2.0.2...v3.0.0) (2019-11-12)
 
 

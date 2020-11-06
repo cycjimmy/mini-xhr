@@ -1,6 +1,6 @@
 {
   "name": "@cycjimmy/mini-xhr",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "xmlHttpRequest in promise",
   "main": "dist/mini-xhr.cjs.js",
   "module": "dist/mini-xhr.esm.js",
