@@ -56,12 +56,6 @@ miniXhr.get(url [, settings])
   * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
   * `timeoutCB`: [Function] Set the time-out callback function. Default `null`.
 
-#### `miniXhr.script(url, [, settings])`
-* `url`: [String] A string containing the URL to which the request is sent.
-* settings:
-  * `data`: [Object] The key-value pair that needs to be transmitted. Default `{}`.
-  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
-
 #### `miniXhr.jsonp(url, [, settings])`
 * `url`: [String] A string containing the URL to which the request is sent.
 * settings:

@@ -51,22 +51,7 @@ describe('miniXhr', () => {
       });
   });
 
-  test('miniXhr.script() default', (done) => {
-    miniXhr.script(testUrl);
-    setTimeout(done, 1e3);
-  });
-
-  test('miniXhr.script() works when timeout', () => {
-    return miniXhr.script(testUrl, {
-      data: {a: 1},
-      timeout: 2e3,
-    })
-      .catch(err => {
-        expect(err).toBeTruthy();
-      });
-  });
-
-  test('miniXhr.script() default', (done) => {
+  test('miniXhr.jsonp() default', (done) => {
     miniXhr.jsonp(testUrl);
     setTimeout(done, 1e3);
   });

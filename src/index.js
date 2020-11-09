@@ -64,52 +64,6 @@ export const post = (
   );
 
 /**
- * script
- * @param url
- * @param data
- * @param timeout
- * @returns {Promise<any | never>}
- */
-export const script = (url, { data = {}, timeout = 0 } = {}) =>
-  Promise.resolve().then(
-    () =>
-      new Promise((resolve, reject) => {
-        const oHead = document.querySelector('head');
-        const oScript = document.createElement('script');
-        const sData = dataStringMakeUp(data);
-
-        oScript.src = url;
-        oScript.type = 'text/javascript';
-
-        if (sData) {
-          oScript.src += `?${sData}`;
-        }
-
-        const scriptCallback = (e) => {
-          // clean oScript
-          oHead.removeChild(oScript);
-          clearTimeout(oScript.timer);
-          resolve(e);
-        };
-
-        oScript.addEventListener('load', scriptCallback, false);
-
-        // timeout handle
-        if (timeout) {
-          oScript.timer = setTimeout(() => {
-            oScript.removeEventListener('load', scriptCallback, false);
-            oHead.removeChild(oScript);
-
-            reject(new Error('timeout'));
-          }, timeout);
-        }
-
-        // send
-        oHead.appendChild(oScript);
-      })
-  );
-
-/**
  * jsonp
  * @param url
  * @param data
@@ -170,6 +124,5 @@ export const jsonp = (url, { data = {}, timeout = 0 } = {}) => {
 export default {
   get,
   post,
-  script,
   jsonp
 };

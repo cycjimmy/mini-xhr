@@ -42,24 +42,44 @@ export default [
             })(),
           },
           {
-            route: '/scriptSuccess',
-            handle: makeAjax({
-              apiName: 'scriptSuccess',
-              data: JSON.stringify({
-                'massage': 'success'
-              }),
-              timeout: 500,
-            })(),
-          },
-          {
             route: '/jsonpSuccess',
-            handle: makeAjax({
-              apiName: 'jsonpSuccess',
-              data: JSON.stringify({
-                'massage': 'success'
-              }),
-              timeout: 500,
-            })(),
+            handle: (req, res, next) => {
+              const apiName = 'jsonpSuccess';
+              const timeout = 500;
+              const remoteAddress = req.headers['x-forwarded-for'] ||
+                req.connection.remoteAddress ||
+                req.socket.remoteAddress ||
+                req.connection.socket.remoteAddress
+              ;
+
+              const callBackName = req.originalUrl.replace(/.+callback=/, '');
+
+              // Set Header
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.setHeader('Content-Type', 'application/json;charset=UTF-8');
+
+              console.log(
+                apiName + ' Receive a require' + '\n' +
+                apiName + ' -----------------' + '\n' +
+                apiName + ' Method: ' + req.method + '\n' +
+                apiName + ' RemoteAddress: ' + remoteAddress + '\n' +
+                apiName + ' callBackName: ' + callBackName + '\n'
+              );
+
+              setTimeout(() => {
+                res.end(`${callBackName}(${JSON.stringify({'massage': 'success'})})`);
+                next();
+              }, timeout);
+
+              req.on('err', err => {
+                console.log(
+                  apiName + ' Error: ' + err + '\n'
+                );
+
+                res.end('Error:' + err);
+                next();
+              });
+            },
           },
         ],
       })

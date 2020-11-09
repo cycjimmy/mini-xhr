@@ -94,11 +94,6 @@
   </div>
 
   <div class="buttons-wrapper">
-    <a href="javascript:" class="button" data-tip="scriptSuccess">scriptSuccess</a>
-    <a href="javascript:" class="button" data-tip="scriptFail">scriptFail</a>
-  </div>
-
-  <div class="buttons-wrapper">
     <a href="javascript:" class="button" data-tip="jsonpSuccess">jsonpSuccess</a>
     <a href="javascript:" class="button" data-tip="jsonpFail">jsonpFail</a>
   </div>
@@ -131,18 +126,6 @@
       case 'postSuccess':
       case 'postFail':
         miniXhr.post(`/${buttonTip}`, {
-          data: {
-            a: 1,
-            b: 2
-          }
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'scriptSuccess':
-      case 'scriptFail':
-        miniXhr.script(`/${buttonTip}`, {
           data: {
             a: 1,
             b: 2
