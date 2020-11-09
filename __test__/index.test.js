@@ -1,29 +1,63 @@
+import createXhrMock from '../__mocks__/createXhrMock';
+import {responseSuccess, testUrl} from '../__mocks__/someTestVariables';
 import miniXhr from '../src/index';
 
 describe('miniXhr', () => {
-  test('miniXhr.get() works', () => {
-    return miniXhr.get('https://api.github.com/users/cycjimmy')
+  test('miniXhr.get() default', () => {
+    createXhrMock({
+      response: responseSuccess
+    });
+
+    return miniXhr.get(testUrl)
       .then(data => {
-        expect(data).toBeTruthy();
+        expect(data).toBe(responseSuccess);
       });
   });
 
   test('miniXhr.get() works when fail', () => {
-    return miniXhr.get('https://api.github.com/users/cycjimmy')
+    createXhrMock({
+      readyState: 4,
+      status: 404,
+      statusText: 'error'
+    });
+
+    return miniXhr.get(testUrl)
       .catch(err => {
         expect(err).toBeTruthy();
+      });
+  });
+
+  test('miniXhr.post() default', () => {
+    createXhrMock({
+      response: responseSuccess
+    });
+
+    return miniXhr.post(testUrl)
+      .then(data => {
+        expect(data).toBe(responseSuccess);
       });
   });
 
   test('miniXhr.post() works when fail', () => {
-    return miniXhr.post('https://api.github.com/users/cycjimmy111111')
+    createXhrMock({
+      readyState: 4,
+      status: 404,
+      statusText: 'error'
+    });
+
+    return miniXhr.post(testUrl)
       .catch(err => {
         expect(err).toBeTruthy();
       });
   });
 
+  test('miniXhr.script() default', (done) => {
+    miniXhr.script(testUrl);
+    setTimeout(done, 1e3);
+  });
+
   test('miniXhr.script() works when timeout', () => {
-    return miniXhr.script('https://aa.bb.com/cycjimmy', {
+    return miniXhr.script(testUrl, {
       data: {a: 1},
       timeout: 2e3,
     })
@@ -32,8 +66,13 @@ describe('miniXhr', () => {
       });
   });
 
+  test('miniXhr.script() default', (done) => {
+    miniXhr.jsonp(testUrl);
+    setTimeout(done, 1e3);
+  });
+
   test('miniXhr.jsonp() works when timeout', () => {
-    return miniXhr.jsonp('https://aa.bb.com/cycjimmy', {
+    return miniXhr.jsonp(testUrl, {
       data: {a: 1},
       timeout: 2e3,
     })
