@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link rel="shortcut icon" href="./favicon.ico">
+
+  <title>MiniXhr Test</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+
+      background-color: #0a4f56;
+    }
+
+    .wrapper {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+
+      padding: 40px;
+    }
+
+    .title {
+      font-size: 20px;
+      color: white;
+    }
+
+    .buttons-wrapper {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      width: 80vw;
+      margin-top: 30px;
+    }
+
+    .button {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      height: 30px;
+      margin: 0 5px;
+
+      font-size: 16px;
+      border: 1px solid white;
+      border-radius: 4px;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+  <h1 class="title">MiniXhr Test</h1>
+  <div class="buttons-wrapper">
+    <a href="javascript:" class="button" data-tip="getSuccess">getSuccess</a>
+    <a href="javascript:" class="button" data-tip="getFail">getFail</a>
+  </div>
+
+  <div class="buttons-wrapper">
+    <a href="javascript:" class="button" data-tip="postSuccess">postSuccess</a>
+    <a href="javascript:" class="button" data-tip="postFail">postFail</a>
+  </div>
+
+  <div class="buttons-wrapper">
+    <a href="javascript:" class="button" data-tip="scriptSuccess">scriptSuccess</a>
+    <a href="javascript:" class="button" data-tip="scriptFail">scriptFail</a>
+  </div>
+
+  <div class="buttons-wrapper">
+    <a href="javascript:" class="button" data-tip="jsonpSuccess">jsonpSuccess</a>
+    <a href="javascript:" class="button" data-tip="jsonpFail">jsonpFail</a>
+  </div>
+</div>
+
+<script src="./mini-xhr.umd.js"></script>
+<script>
+  const aButtons = Array.prototype.slice.call(document.querySelectorAll('.button'));
+
+  aButtons.forEach(button => button.addEventListener('click', function () {
+    const buttonTip = button.dataset.tip;
+
+    if (!buttonTip) {
+      return;
+    }
+
+    switch (buttonTip) {
+      case 'getSuccess':
+      case 'getFail':
+        miniXhr.get(`/${buttonTip}`, {
+          data: {
+            a: 1,
+            b: 2
+          }
+        })
+          .then(console.log)
+          .catch(console.error)
+        break;
+
+      case 'postSuccess':
+      case 'postFail':
+        miniXhr.post(`/${buttonTip}`, {
+          data: {
+            a: 1,
+            b: 2
+          }
+        })
+          .then(console.log)
+          .catch(console.error)
+        break;
+
+      case 'scriptSuccess':
+      case 'scriptFail':
+        miniXhr.script(`/${buttonTip}`, {
+          data: {
+            a: 1,
+            b: 2
+          }
+        })
+          .then(console.log)
+          .catch(console.error)
+        break;
+
+      case 'jsonpSuccess':
+      case 'jsonpFail':
+        miniXhr.jsonp(`/${buttonTip}`, {
+          data: {
+            a: 1,
+            b: 2
+          }
+        })
+          .then(console.log)
+          .catch(console.error)
+        break;
+    }
+  }));
+</script>
+</body>
+</html>
