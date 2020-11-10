@@ -24,7 +24,7 @@ export default ({
   fail = () => {}
 }) => {
   const xhr = new XMLHttpRequest();
-  xhr.open(method, url, true);
+  xhr.open(method, method === 'GET' ? `${url}?${data}` : url, true);
   xhr.onreadystatechange = () => {
     if (xhr.readyState !== 4) {
       return;
@@ -32,7 +32,8 @@ export default ({
     if (xhr.status >= 200 && xhr.status < 400) {
       success(xhr.response);
     } else {
-      fail(new Error(xhr.statusText));
+      const { statusText, status } = xhr;
+      fail({ statusText: status ? statusText : 'timeout', status });
     }
   };
 

@@ -29,4 +29,4 @@ export const dataStringMakeUp = (data = {}) => {
  * @returns {any}
  * @private
  */
-export const getGlobal = () => (typeof window === 'undefined' ? global : window);
+export const getGlobal = () => (typeof window === undefined ? global : window);

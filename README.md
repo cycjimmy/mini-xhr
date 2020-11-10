@@ -34,6 +34,9 @@ const miniXhr = require('@cycjimmy/mini-xhr');
 miniXhr.get(url [, settings])
   .then((data) => {
     // handle data
+  })
+  .catch((err) => {
+    // handle error
   });
 ```
 
@@ -56,23 +59,41 @@ miniXhr.get(url [, settings])
   * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
   * `timeoutCB`: [Function] Set the time-out callback function. Default `null`.
 
-#### `miniXhr.script(url, [, settings])`
-* `url`: [String] A string containing the URL to which the request is sent.
-* settings:
-  * `data`: [Object] The key-value pair that needs to be transmitted. Default `{}`.
-  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
-
 #### `miniXhr.jsonp(url, [, settings])`
 * `url`: [String] A string containing the URL to which the request is sent.
 * settings:
   * `data`: [Object] The key-value pair that needs to be transmitted. Default `{}`.
-  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
+  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `5000`.
+
+#### Handling Errors
+##### GET or POST
+```javascript
+miniXhr.get('/getData')
+  .then((data) => {
+    // data handle
+  })
+  .catch((err) => {
+    console.log(err.statusText);  // the text of the response status
+    console.log(err.status);      // the numerical HTTP status code
+  });
+```
+
+##### JSONP
+```javascript
+miniXhr.jsonp('/getData')
+  .then((data) => {
+    // data handle
+  })
+  .catch((err) => {
+    console.log(err);  // return 'error' or 'timeout'
+  });
+```
 
 ### Use in browser: E.g.
 ```html
 <script src="mini-xhr.umd.min.js"></script>
 <script>
-  miniXhr.jsonp('/getData' , {
+  miniXhr.jsonp('/getData', {
     data: {
       key1: 'value1',
       key2: 'value2',
@@ -89,7 +110,7 @@ miniXhr.get(url [, settings])
 
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@3/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@4/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->

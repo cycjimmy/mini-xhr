@@ -9,7 +9,11 @@ describe('tools', () => {
     expect(dataStringMakeUp({a: 1, b: 2})).toBe('a=1&b=2');
   });
 
-  test('getGlobal() test return global', () => {
-    expect(getGlobal()).toBe(global);
+  test('dataStringMakeUp() cover test', () => {
+    expect(dataStringMakeUp(Object.create({a: 1, b: 2}))).toBe('');
+  });
+
+  test('getGlobal() test return window', () => {
+    expect(getGlobal()).toBe(window);
   });
 });

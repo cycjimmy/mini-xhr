@@ -64,60 +64,16 @@ export const post = (
   );
 
 /**
- * script
- * @param url
- * @param data
- * @param timeout
- * @returns {Promise<any | never>}
- */
-export const script = (url, { data = {}, timeout = 0 } = {}) =>
-  Promise.resolve().then(
-    () =>
-      new Promise((resolve, reject) => {
-        const oHead = document.querySelector('head');
-        const oScript = document.createElement('script');
-        const sData = dataStringMakeUp(data);
-
-        oScript.src = url;
-        oScript.type = 'text/javascript';
-
-        if (sData) {
-          oScript.src += `?${sData}`;
-        }
-
-        const scriptCallback = (e) => {
-          // clean oScript
-          oHead.removeChild(oScript);
-          clearTimeout(oScript.timer);
-          resolve(e);
-        };
-
-        oScript.addEventListener('load', scriptCallback, false);
-
-        // timeout handle
-        if (timeout) {
-          oScript.timer = setTimeout(() => {
-            oScript.removeEventListener('load', scriptCallback, false);
-            oHead.removeChild(oScript);
-
-            reject(new Error('timeout'));
-          }, timeout);
-        }
-
-        // send
-        oHead.appendChild(oScript);
-      })
-  );
-
-/**
  * jsonp
  * @param url
  * @param data
  * @param timeout
  * @returns {Promise<any | never>}
  */
-export const jsonp = (url, { data = {}, timeout = 0 } = {}) => {
+export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
   const jsonpNameSpace = getGlobal();
+  const STR_ERROR = 'error';
+  const STR_TIMEOUT = 'timeout';
 
   return Promise.resolve().then(
     () =>
@@ -133,12 +89,7 @@ export const jsonp = (url, { data = {}, timeout = 0 } = {}) => {
 
         // jsonp callback function
         jsonpNameSpace[callbackName] = (json) => {
-          // clean oScript
-          oHead.removeChild(oScript);
-          clearTimeout(oScript.timer);
-          jsonpNameSpace[callbackName] = null;
-
-          // resolve
+          clearScript();
           resolve(json);
         };
 
@@ -152,17 +103,24 @@ export const jsonp = (url, { data = {}, timeout = 0 } = {}) => {
         // timeout handle
         if (timeout) {
           oScript.timer = setTimeout(() => {
-            // clean oScript
-            oHead.removeChild(oScript);
-            jsonpNameSpace[callbackName] = null;
-
-            // reject err
-            reject(new Error('timeout'));
+            clearScript();
+            reject(STR_TIMEOUT);
           }, timeout);
         }
 
+        oScript.addEventListener('error', () => {
+          clearScript();
+          reject(STR_ERROR);
+        });
+
         // send
         oHead.appendChild(oScript);
+
+        function clearScript() {
+          oHead.removeChild(oScript);
+          clearTimeout(oScript.timer);
+          jsonpNameSpace[callbackName] = null;
+        }
       })
   );
 };
@@ -170,6 +128,5 @@ export const jsonp = (url, { data = {}, timeout = 0 } = {}) => {
 export default {
   get,
   post,
-  script,
   jsonp
 };
