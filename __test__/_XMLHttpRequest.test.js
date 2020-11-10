@@ -1,5 +1,5 @@
 import createXhrMock from '../__mocks__/createXhrMock';
-import {responseSuccess, testUrl} from '../__mocks__/someTestVariables';
+import {responseSuccess, testUrl, statusTextFor404} from '../__mocks__/someTestVariables';
 import _XMLHttpRequest from '../src/_XMLHttpRequest';
 
 describe('_XMLHttpRequest', () => {
@@ -19,7 +19,8 @@ describe('_XMLHttpRequest', () => {
 
   test('_XMLHttpRequest timeout', done => {
     createXhrMock({
-      readyState: 3,
+      readyState: 4,
+      status: 0,
       response: responseSuccess
     });
 
@@ -35,7 +36,7 @@ describe('_XMLHttpRequest', () => {
     createXhrMock({
       readyState: 4,
       status: 404,
-      statusText: 'error'
+      statusText: statusTextFor404
     });
 
     _XMLHttpRequest({
@@ -62,7 +63,19 @@ describe('_XMLHttpRequest', () => {
     createXhrMock({
       readyState: 4,
       status: 404,
-      statusText: 'error'
+      statusText: statusTextFor404
+    });
+
+    _XMLHttpRequest({
+      url: testUrl,
+    });
+
+    setTimeout(done, 1e3);
+  });
+
+  test('_XMLHttpRequest cover readyState', (done) => {
+    createXhrMock({
+      readyState: 3,
     });
 
     _XMLHttpRequest({

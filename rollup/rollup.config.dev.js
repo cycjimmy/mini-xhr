@@ -28,7 +28,7 @@ export default [
               data: {
                 'massage': 'success'
               },
-              timeout: 500,
+              timeout: 1e3,
             })(),
           },
           {
@@ -38,14 +38,14 @@ export default [
               data: {
                 'massage': 'success'
               },
-              timeout: 500,
+              timeout: 1e3,
             })(),
           },
           {
             route: '/jsonpSuccess',
             handle: (req, res, next) => {
               const apiName = 'jsonpSuccess';
-              const timeout = 500;
+              const timeout = 1e3;
               const remoteAddress = req.headers['x-forwarded-for'] ||
                 req.connection.remoteAddress ||
                 req.socket.remoteAddress ||
@@ -67,7 +67,7 @@ export default [
               );
 
               setTimeout(() => {
-                res.end(`${callBackName}(${JSON.stringify({'massage': 'success'})})`);
+                res.end(`typeof ${callBackName} === 'function' && ${callBackName}(${JSON.stringify({'massage': 'success'})})`);
                 next();
               }, timeout);
 
