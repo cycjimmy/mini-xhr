@@ -1,3 +1,21 @@
+# [4.0.0](https://github.com/cycjimmy/mini-xhr/compare/v3.0.1...v4.0.0) (2020-11-10)
+
+
+### Bug Fixes
+
+* fix "data" do not work in "GET" mothed ([8c8fa20](https://github.com/cycjimmy/mini-xhr/commit/8c8fa206f7e0fa4a7bc65c1c3940391b735449c6))
+
+
+### Features
+
+* enhance error handling ([ac6f50f](https://github.com/cycjimmy/mini-xhr/commit/ac6f50f4e1cc1f935bfef18eeef6384b226b46ed))
+* **script:** remove 'script' method ([95fa4a8](https://github.com/cycjimmy/mini-xhr/commit/95fa4a883ca5085b8126b055e6b18f5dc9e25906))
+
+
+### BREAKING CHANGES
+
+* **script:** remove 'script' method
+
 ## [3.0.1](https://github.com/cycjimmy/mini-xhr/compare/v3.0.0...v3.0.1) (2020-11-06)
 
 
