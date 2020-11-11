@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/cycjimmy/mini-xhr/compare/v4.0.1...v4.1.0) (2020-11-11)
+
+
+### Features
+
+* **headers:** support custom headers ([1727d24](https://github.com/cycjimmy/mini-xhr/commit/1727d2475b9c086b3b459a9634057c8ee60be681))
+
 ## [4.0.1](https://github.com/cycjimmy/mini-xhr/compare/v4.0.0...v4.0.1) (2020-11-11)
 
 
