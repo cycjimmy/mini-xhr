@@ -42,29 +42,31 @@ miniXhr.get(url [, settings])
 ```
 
 ### miniXhr supports the following methods:
-#### `miniXhr.get(url, [, settings])`
-* `url`: [String] A string containing the URL to which the request is sent.
-* settings:
-  * `data`: [Object] The key-value pair that needs to be transmitted. Default `{}`.
-  * `dataType`: [String] Request data type. Default `'json'`.
-  * `contentType`: [String] Setting content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
-  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Function] Set the time-out callback function. Default `null`.
+#### `miniXhr.get(url, [,settings])`
+* `url`: [String] The server URL that will be used for the request.
+* The `settings` supports: [Option][Object]
+  * `data`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
+  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
+  * `contentType`: [Option][String] Content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
+  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
+  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
   
-#### `miniXhr.post(url, [, settings])`
-* `url`: [String] A string containing the URL to which the request is sent.
-* settings:
-  * `data`: [Object] The key-value pair that needs to be transmitted. Default `{}`.
-  * `dataType`: [String] Request data type. Default `'json'`.
-  * `contentType`: [String] Setting content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
-  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Function] Set the time-out callback function. Default `null`.
+#### `miniXhr.post(url, [,settings])`
+* `url`: [String] The server URL that will be used for the request.
+* The `settings` supports: [Option][Object]
+  * `data`: [Option][Object] The key-value pair for the data to be sent as the request body. Default `{}`.
+  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
+  * `contentType`: [Option][String] Content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
+  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
+  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
 
-#### `miniXhr.jsonp(url, [, settings])`
-* `url`: [String] A string containing the URL to which the request is sent.
-* settings:
-  * `data`: [Object] The key-value pair that needs to be transmitted. Default `{}`.
-  * `timeout`: [Number] Set a timeout for the request. A value of 0 means there will be no timeout. Default `5000`.
+#### `miniXhr.jsonp(url, [,settings])`
+* `url`: [String] The server URL that will be used for the request.
+* The `settings` supports: [Option][Object]
+  * `data`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
+  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `5000`.
 
 #### Handling Errors
 ##### GET or POST

@@ -56,6 +56,9 @@ describe('_XMLHttpRequest', () => {
       url: testUrl,
       data: {
         a: 1
+      },
+      headers: {
+        h1: 1
       }
     });
 

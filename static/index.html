@@ -85,12 +85,20 @@
   <h1 class="title">MiniXhr Test</h1>
   <div class="buttons-wrapper">
     <a href="javascript:" class="button" data-tip="getSuccess">getSuccess</a>
+    <a href="javascript:" class="button" data-tip="getSuccessAdvance">getSuccessAdvance</a>
+  </div>
+
+  <div class="buttons-wrapper">
     <a href="javascript:" class="button" data-tip="getTimeout">getTimeout</a>
     <a href="javascript:" class="button" data-tip="getFail">getFail</a>
   </div>
 
   <div class="buttons-wrapper">
     <a href="javascript:" class="button" data-tip="postSuccess">postSuccess</a>
+    <a href="javascript:" class="button" data-tip="postSuccessAdvance">postSuccessAdvance</a>
+  </div>
+
+  <div class="buttons-wrapper">
     <a href="javascript:" class="button" data-tip="postTimeout">postTimeout</a>
     <a href="javascript:" class="button" data-tip="postFail">postFail</a>
   </div>
@@ -115,12 +123,21 @@
 
     switch (buttonTip) {
       case 'getSuccess':
-      case 'getFail':
-        miniXhr.get(`/${buttonTip}`, {
+        miniXhr.get(`/${buttonTip}`)
+          .then(console.log)
+          .catch(console.error)
+        break;
+
+      case 'getSuccessAdvance':
+        miniXhr.get(`/getSuccess`, {
           data: {
             a: 1,
             b: 2
           },
+          headers: {
+            h1: 1,
+            h2: 2
+          }
         })
           .then(console.log)
           .catch(console.error)
@@ -137,12 +154,27 @@
           .catch(console.error)
         break;
 
+      case 'getFail':
+        miniXhr.get(`/${buttonTip}`)
+          .then(console.log)
+          .catch(console.error)
+        break;
+
       case 'postSuccess':
-      case 'postFail':
-        miniXhr.post(`/${buttonTip}`, {
+        miniXhr.post(`/${buttonTip}`)
+          .then(console.log)
+          .catch(console.error)
+        break;
+
+      case 'postSuccessAdvance':
+        miniXhr.post(`/postSuccess`, {
           data: {
             a: 1,
             b: 2
+          },
+          headers: {
+            h1: 1,
+            h2: 2
           }
         })
           .then(console.log)
@@ -151,15 +183,17 @@
 
       case 'postTimeout':
         miniXhr.post(`/postSuccess`, {
-          data: {
-            a: 1,
-            b: 2
-          },
           timeout: 500,
           ontimeoutCB: () => {
             console.log('timeout');
           }
         })
+          .then(console.log)
+          .catch(console.error)
+        break;
+
+      case 'postFail':
+        miniXhr.post(`/${buttonTip}`)
           .then(console.log)
           .catch(console.error)
         break;

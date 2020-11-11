@@ -1,3 +1,5 @@
+import { objectIterate } from './tools';
+
 /**
  * XMLHttpRequest
  * @param method  default 'GET'
@@ -7,6 +9,7 @@
  * @param dataType  default 'json'
  * @param data
  * @param contentType default 'application/x-www-form-urlencoded; charset=UTF-8'
+ * @param headers default {}
  * @param success
  * @param fail
  * @returns {XMLHttpRequest}
@@ -20,6 +23,7 @@ export default ({
   dataType = 'json',
   data,
   contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
+  headers = {},
   success = () => {},
   fail = () => {}
 }) => {
@@ -54,6 +58,12 @@ export default ({
   }
 
   xhr.setRequestHeader('Content-Type', contentType);
+
+  // set custom headers
+  objectIterate(headers, (value, key) => {
+    xhr.setRequestHeader(key, value);
+  });
+
   xhr.send(data);
 
   return xhr;
