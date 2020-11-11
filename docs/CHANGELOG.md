@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/cycjimmy/mini-xhr/compare/v4.0.0...v4.0.1) (2020-11-11)
+
+
+### Bug Fixes
+
+* **get:** delete extra '?' when data is empty ([445ece3](https://github.com/cycjimmy/mini-xhr/commit/445ece3321cff7c9d5f54796783986f872e02aed))
+
 # [4.0.0](https://github.com/cycjimmy/mini-xhr/compare/v3.0.1...v4.0.0) (2020-11-10)
 
 
