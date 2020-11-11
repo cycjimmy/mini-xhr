@@ -7,13 +7,14 @@ import { dataStringMakeUp, getGlobal } from './tools';
  * @param dataType
  * @param data
  * @param contentType
+ * @param headers
  * @param timeout
  * @param ontimeoutCB
  * @returns {Promise<any | never>}
  */
 export const get = (
   url,
-  { dataType = 'json', data = {}, contentType, timeout = 0, ontimeoutCB = null } = {}
+  { dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null } = {}
 ) =>
   Promise.resolve().then(
     () =>
@@ -24,6 +25,7 @@ export const get = (
           dataType,
           contentType,
           data: dataStringMakeUp(data),
+          headers,
           timeout,
           ontimeoutCB,
           success: (res) => resolve(res),
@@ -38,13 +40,14 @@ export const get = (
  * @param dataType
  * @param data
  * @param contentType
+ * @param headers
  * @param timeout
  * @param ontimeoutCB
  * @returns {Promise<any | never>}
  */
 export const post = (
   url,
-  { dataType = 'json', data = {}, contentType, timeout = 0, ontimeoutCB = null } = {}
+  { dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null } = {}
 ) =>
   Promise.resolve().then(
     () =>
@@ -53,8 +56,9 @@ export const post = (
           method: 'POST',
           url,
           dataType,
-          data: dataStringMakeUp(data),
           contentType,
+          data: dataStringMakeUp(data),
+          headers,
           timeout,
           ontimeoutCB,
           success: (res) => resolve(res),

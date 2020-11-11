@@ -1,25 +1,35 @@
 /**
+ * objectIterate
+ * @param obj
+ * @param fn
+ */
+export const objectIterate = (obj, fn) => {
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      fn.call(null, obj[key], key, obj);
+    }
+  }
+};
+
+/**
  * Data String Make Up
  * @param data
  * @returns {string}
- * @private
  */
 export const dataStringMakeUp = (data = {}) => {
   // set data string
   let sData = '';
 
-  for (const key in data) {
-    if (Object.prototype.hasOwnProperty.call(data, key)) {
-      let prefix = '';
+  objectIterate(data, (value, key) => {
+    let prefix = '';
 
-      if (sData) {
-        // not first key
-        prefix = '&';
-      }
-
-      sData += `${prefix + key}=${data[key]}`;
+    if (sData) {
+      // not first key
+      prefix = '&';
     }
-  }
+
+    sData += `${prefix + key}=${value}`;
+  });
 
   return sData;
 };
@@ -27,6 +37,5 @@ export const dataStringMakeUp = (data = {}) => {
 /**
  * get Global
  * @returns {any}
- * @private
  */
 export const getGlobal = () => (typeof window === undefined ? global : window);
