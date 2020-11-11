@@ -1,7 +1,7 @@
 {
   "name": "@cycjimmy/mini-xhr",
   "version": "4.0.1",
-  "description": "xmlHttpRequest in promise",
+  "description": "A very lightweight javascript library for HTTP requests.",
   "main": "dist/mini-xhr.cjs.js",
   "module": "dist/mini-xhr.esm.js",
   "browser": "dist/mini-xhr.umd.min.js",

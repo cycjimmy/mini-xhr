@@ -10,6 +10,7 @@
 [![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
 
+A very lightweight javascript library for HTTP requests.
 
 ## Install
 [![NPM version][npm-image]][npm-url]
