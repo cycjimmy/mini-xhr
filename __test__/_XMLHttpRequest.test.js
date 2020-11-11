@@ -54,6 +54,9 @@ describe('_XMLHttpRequest', () => {
 
     _XMLHttpRequest({
       url: testUrl,
+      data: {
+        a: 1
+      }
     });
 
     setTimeout(done, 1e3);

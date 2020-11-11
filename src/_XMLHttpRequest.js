@@ -24,7 +24,7 @@ export default ({
   fail = () => {}
 }) => {
   const xhr = new XMLHttpRequest();
-  xhr.open(method, method === 'GET' ? `${url}?${data}` : url, true);
+  xhr.open(method, method === 'GET' && data ? `${url}?${data}` : url, true);
   xhr.onreadystatechange = () => {
     if (xhr.readyState !== 4) {
       return;
