@@ -33,7 +33,7 @@ $ yarn add @cycjimmy/mini-xhr
 import miniXhr from '@cycjimmy/mini-xhr';
 
 # 或者
-const miniXhr = 必选('@cycjimmy/mini-xhr');
+const miniXhr = require('@cycjimmy/mini-xhr');
 
 miniXhr.get(url [, settings])
   .then((data) => {
