@@ -10,77 +10,77 @@
 [![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
 
-A very lightweight javascript library for HTTP requests.
+非常轻量级的HTTP请求库。
 
-Language: [En][Readme-url-En] | [中文][Readme-url-ZhCN]
+语言: [En][Readme-url-En] | [中文][Readme-url-ZhCN]
 ***
 
-## Install
+## 安装
 [![NPM version][npm-image]][npm-url]
 [![NPM bundle size][npm-bundle-size-image]][npm-url]
 [![npm download][download-image]][download-url]
 
 ```shell
-# via npm
+# 通过 npm 安装
 $ npm install @cycjimmy/mini-xhr --save
 
-# or via yarn
+# 或者通过 yarn 安装
 $ yarn add @cycjimmy/mini-xhr
 ```
 
-## Usage
+## 使用
 ```javascript
 import miniXhr from '@cycjimmy/mini-xhr';
 
-# OR
-const miniXhr = require('@cycjimmy/mini-xhr');
+# 或者
+const miniXhr = 必选('@cycjimmy/mini-xhr');
 
 miniXhr.get(url [, settings])
   .then((data) => {
-    // handle data
+    // 数据处理
   })
   .catch((err) => {
-    // handle error
+    // 错误处理
   });
 ```
 
-### miniXhr supports the following methods:
+### miniXhr支持以下几种请求方法：
 #### `miniXhr.get(url, [,settings])`
-* `url`: [Require][String] The server URL that will be used for the request.
-* The `settings` supports: [Option][Object]
-  * `data`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
-  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
-  * `contentType`: [Option][String] Content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
-  * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
-  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
+* `url`: [必选][String] 用于请求的服务器URL.
+* `settings`: [可选][Object] 支持以下设定.
+  * `data`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
+  * `dataType`: [可选][String] 服务器响应的数据类型. 默认为 `'json'`.
+  * `contentType`: [可选][String] 内容类型. 默认为 `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
+  * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
+  * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
   
 #### `miniXhr.post(url, [,settings])`
-* `url`: [Require][String] The server URL that will be used for the request.
-* The `settings` supports: [Option][Object]
-  * `data`: [Option][Object] The key-value pair for the data to be sent as the request body. Default `{}`.
-  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
-  * `contentType`: [Option][String] Content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
-  * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
-  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
+* `url`: [必选][String] 用于请求的服务器URL.
+* `settings`: [可选][Object] 支持以下设定.
+  * `data`: [可选][Object] 作为请求主体一起发送的数据(以键值对形式设定). 默认为 `{}`.
+  * `dataType`: [可选][String] 服务器响应的数据类型. 默认为 `'json'`.
+  * `contentType`: [可选][String] 内容类型. 默认为 `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
+  * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
+  * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
 
 #### `miniXhr.jsonp(url, [,settings])`
-* `url`: [Require][String] The server URL that will be used for the request.
-* The `settings` supports: [Option][Object]
-  * `data`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
-  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `5000`.
+* `url`: [必选][String] 用于请求的服务器URL.
+* `settings`: [可选][Object] 支持以下设定.
+  * `data`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
+  * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `5000`.
 
-#### Handling Errors
-##### GET or POST
+#### 错误处理
+##### GET 或者 POST
 ```javascript
 miniXhr.get('/getData')
   .then((data) => {
-    // data handle
+    // 数据处理
   })
   .catch((err) => {
-    console.log(err.statusText);  // the text of the response status
-    console.log(err.status);      // the numerical HTTP status code
+    console.log(err.statusText);  // 响应状态文本
+    console.log(err.status);      // HTTP状态码
   });
 ```
 
@@ -88,14 +88,14 @@ miniXhr.get('/getData')
 ```javascript
 miniXhr.jsonp('/getData')
   .then((data) => {
-    // data handle
+    // 数据处理
   })
   .catch((err) => {
-    console.log(err);  // return 'error' or 'timeout'
+    console.log(err);  // 返回 'error' 或者 'timeout' (字符串)
   });
 ```
 
-### Use in browser: E.g.
+### 在浏览器中使用
 ```html
 <script src="mini-xhr.umd.min.js"></script>
 <script>
@@ -106,7 +106,7 @@ miniXhr.jsonp('/getData')
     }
   })
     .then(function(data) {
-      // data handle
+      // 数据处理
     });
 </script>
 ```
@@ -114,7 +114,7 @@ miniXhr.jsonp('/getData')
 ## CDN
 [![jsdelivr][jsdelivr-image]][jsdelivr-url]
 
-To use via a CDN include this in your html:
+使用CDN，请在HTML中添加:
 ```text
 <script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@4/dist/mini-xhr.umd.min.js"></script>
 ```
