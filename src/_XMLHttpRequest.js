@@ -25,7 +25,7 @@ export default ({
   contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
   headers = {},
   success = () => {},
-  fail = () => {}
+  fail = () => {},
 }) => {
   const xhr = new XMLHttpRequest();
   xhr.open(method, method === 'GET' && data ? `${url}?${data}` : url, true);

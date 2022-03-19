@@ -1,14 +1,17 @@
+import { jest } from '@jest/globals';
+
 export default ({
-                  response = '',
-                  readyState = 4,
-                  status = 200,
-                  statusText = '',
-                } = {}) => {
+  response = '',
+  readyState = 4,
+  status = 200,
+  statusText = '',
+} = {}) => {
   const open = jest.fn();
   let onload = jest.fn();
   let onerror = jest.fn();
   let setRequestHeader = jest.fn();
 
+  // eslint-disable-next-line func-names
   const send = jest.fn().mockImplementation(function () {
     onload = this.onload.bind(this);
     onerror = this.onerror.bind(this);
@@ -42,4 +45,3 @@ export default ({
 
   return xhrMockClass;
 };
-

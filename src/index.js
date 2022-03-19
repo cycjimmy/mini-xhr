@@ -14,25 +14,25 @@ import { dataStringMakeUp, getGlobal } from './tools';
  */
 export const get = (
   url,
-  { dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null } = {}
-) =>
-  Promise.resolve().then(
-    () =>
-      new Promise((resolve, reject) =>
-        _XMLHttpRequest({
-          method: 'GET',
-          url,
-          dataType,
-          contentType,
-          data: dataStringMakeUp(data),
-          headers,
-          timeout,
-          ontimeoutCB,
-          success: (res) => resolve(res),
-          fail: (err) => reject(err)
-        })
-      )
-  );
+  {
+    dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null,
+  } = {},
+) => Promise.resolve().then(
+  () => new Promise((resolve, reject) => {
+    _XMLHttpRequest({
+      method: 'GET',
+      url,
+      dataType,
+      contentType,
+      data: dataStringMakeUp(data),
+      headers,
+      timeout,
+      ontimeoutCB,
+      success: (res) => resolve(res),
+      fail: (err) => reject(err),
+    });
+  }),
+);
 
 /**
  * post
@@ -47,25 +47,25 @@ export const get = (
  */
 export const post = (
   url,
-  { dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null } = {}
-) =>
-  Promise.resolve().then(
-    () =>
-      new Promise((resolve, reject) =>
-        _XMLHttpRequest({
-          method: 'POST',
-          url,
-          dataType,
-          contentType,
-          data: dataStringMakeUp(data),
-          headers,
-          timeout,
-          ontimeoutCB,
-          success: (res) => resolve(res),
-          fail: (err) => reject(err)
-        })
-      )
-  );
+  {
+    dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null,
+  } = {},
+) => Promise.resolve().then(
+  () => new Promise((resolve, reject) => {
+    _XMLHttpRequest({
+      method: 'POST',
+      url,
+      dataType,
+      contentType,
+      data: dataStringMakeUp(data),
+      headers,
+      timeout,
+      ontimeoutCB,
+      success: (res) => resolve(res),
+      fail: (err) => reject(err),
+    });
+  }),
+);
 
 /**
  * jsonp
@@ -80,57 +80,56 @@ export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
   const STR_TIMEOUT = 'timeout';
 
   return Promise.resolve().then(
-    () =>
-      new Promise((resolve, reject) => {
-        const oHead = document.querySelector('head');
-        const oScript = document.createElement('script');
-        const sData = dataStringMakeUp(data);
+    () => new Promise((resolve, reject) => {
+      const oHead = document.querySelector('head');
+      const oScript = document.createElement('script');
+      const sData = dataStringMakeUp(data);
 
-        oScript.src = url;
-        oScript.type = 'text/javascript';
+      oScript.src = url;
+      oScript.type = 'text/javascript';
 
-        const callbackName = `jsonp_${Math.random()}`.replace('.', '');
+      const callbackName = `jsonp_${Math.random()}`.replace('.', '');
 
-        // jsonp callback function
-        jsonpNameSpace[callbackName] = (json) => {
+      function clearScript() {
+        oHead.removeChild(oScript);
+        clearTimeout(oScript.timer);
+        jsonpNameSpace[callbackName] = null;
+      }
+
+      // jsonp callback function
+      jsonpNameSpace[callbackName] = (json) => {
+        clearScript();
+        resolve(json);
+      };
+
+      // set oScript.src
+      if (sData) {
+        oScript.src += `?${sData}&callback=${callbackName}`;
+      } else {
+        oScript.src += `?callback=${callbackName}`;
+      }
+
+      // timeout handle
+      if (timeout) {
+        oScript.timer = setTimeout(() => {
           clearScript();
-          resolve(json);
-        };
+          reject(STR_TIMEOUT);
+        }, timeout);
+      }
 
-        // set oScript.src
-        if (sData) {
-          oScript.src += `?${sData}&callback=${callbackName}`;
-        } else {
-          oScript.src += `?callback=${callbackName}`;
-        }
+      oScript.addEventListener('error', () => {
+        clearScript();
+        reject(STR_ERROR);
+      });
 
-        // timeout handle
-        if (timeout) {
-          oScript.timer = setTimeout(() => {
-            clearScript();
-            reject(STR_TIMEOUT);
-          }, timeout);
-        }
-
-        oScript.addEventListener('error', () => {
-          clearScript();
-          reject(STR_ERROR);
-        });
-
-        // send
-        oHead.appendChild(oScript);
-
-        function clearScript() {
-          oHead.removeChild(oScript);
-          clearTimeout(oScript.timer);
-          jsonpNameSpace[callbackName] = null;
-        }
-      })
+      // send
+      oHead.appendChild(oScript);
+    }),
   );
 };
 
 export default {
   get,
   post,
-  jsonp
+  jsonp,
 };
