@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/cycjimmy/mini-xhr/compare/v4.1.0...v5.0.0) (2022-03-19)
+
+
+### Features
+
+* change to module mode ([8c55c56](https://github.com/cycjimmy/mini-xhr/commit/8c55c56343ac51aa6126f16016dd4dcce6290648))
+
+
+### BREAKING CHANGES
+
+* change to module mode
+
 # [4.1.0](https://github.com/cycjimmy/mini-xhr/compare/v4.0.1...v4.1.0) (2020-11-11)
 
 
