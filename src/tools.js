@@ -4,6 +4,7 @@
  * @param fn
  */
 export const objectIterate = (obj, fn) => {
+  // eslint-disable-next-line no-restricted-syntax
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
       fn.call(null, obj[key], key, obj);
@@ -38,4 +39,4 @@ export const dataStringMakeUp = (data = {}) => {
  * get Global
  * @returns {any}
  */
-export const getGlobal = () => (typeof window === undefined ? global : window);
+export const getGlobal = () => (typeof window === 'undefined' ? global : window);

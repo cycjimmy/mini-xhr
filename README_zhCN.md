@@ -1,6 +1,5 @@
 # Mini XHR
 ![][workflows-badge-image]
-[![build status][travis-image]][travis-url]
 [![libraries dependency status][libraries-status-image]][libraries-status-url]
 [![libraries sourcerank][libraries-sourcerank-image]][libraries-sourcerank-url]
 [![Coverage Status][coverage-image]][coverage-url]
@@ -116,7 +115,7 @@ miniXhr.jsonp('/getData')
 
 使用CDN，请在HTML中添加:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@4/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@5/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->
@@ -131,8 +130,6 @@ miniXhr.jsonp('/getData')
 [jsdelivr-url]: https://www.jsdelivr.com/package/npm/@cycjimmy/mini-xhr
 
 [workflows-badge-image]: https://github.com/cycjimmy/mini-xhr/workflows/Test%20CI/badge.svg
-[travis-image]: https://img.shields.io/travis/cycjimmy/mini-xhr
-[travis-url]: https://travis-ci.org/cycjimmy/mini-xhr
 
 [libraries-status-image]: https://img.shields.io/librariesio/release/npm/@cycjimmy/mini-xhr
 [libraries-sourcerank-image]: https://img.shields.io/librariesio/sourcerank/npm/@cycjimmy/mini-xhr
@@ -156,5 +153,5 @@ miniXhr.jsonp('/getData')
 
 [license-image]: https://img.shields.io/npm/l/@cycjimmy/mini-xhr
 
-[Readme-url-En]: https://github.com/cycjimmy/mini-xhr/blob/master/README.md
-[Readme-url-ZhCN]: https://github.com/cycjimmy/mini-xhr/blob/master/README_zhCN.md
+[Readme-url-En]: ./README.md
+[Readme-url-ZhCN]: ./README_zhCN.md
