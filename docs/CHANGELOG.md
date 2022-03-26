@@ -1,3 +1,15 @@
+# [6.0.0](https://github.com/cycjimmy/mini-xhr/compare/v5.0.0...v6.0.0) (2022-03-26)
+
+
+### Features
+
+* refactoring build tasks ([14fa518](https://github.com/cycjimmy/mini-xhr/commit/14fa518ae5a1bfdc06867ff438ce2bf58755a2c5))
+
+
+### BREAKING CHANGES
+
+* refactoring build tasks
+
 # [5.0.0](https://github.com/cycjimmy/mini-xhr/compare/v4.1.0...v5.0.0) (2022-03-19)
 
 
