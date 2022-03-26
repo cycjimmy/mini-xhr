@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/cycjimmy/mini-xhr/compare/v6.0.0...v6.0.1) (2022-03-26)
+
+
+### Bug Fixes
+
+* fix root version after releasing ([ff67abd](https://github.com/cycjimmy/mini-xhr/commit/ff67abd3510a3b4b6452922c1a198dd519fbd4d1))
+
 # [6.0.0](https://github.com/cycjimmy/mini-xhr/compare/v5.0.0...v6.0.0) (2022-03-26)
 
 
