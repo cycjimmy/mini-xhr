@@ -5,7 +5,7 @@
 import browsersync from 'rollup-plugin-browsersync';
 import makeAjax from '@cycjimmy/config-lib/esm/browsersync/2.x/middleware/makeAjax.js';
 
-import pkg from './package.cjs';
+import pkg from '../package.cjs';
 
 import {
   input, IS_DEVELOPMENT, name, plugins, exports,

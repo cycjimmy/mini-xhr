@@ -115,7 +115,7 @@ miniXhr.jsonp('/getData')
 
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@5/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@6/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->

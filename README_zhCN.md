@@ -115,7 +115,7 @@ miniXhr.jsonp('/getData')
 
 使用CDN，请在HTML中添加:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@5/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@6/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->
