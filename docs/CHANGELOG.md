@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/cycjimmy/mini-xhr/compare/v6.0.1...v6.0.2) (2022-06-21)
+
+
+### Bug Fixes
+
+* remove @rollup/plugin-commonjs ([616aa30](https://github.com/cycjimmy/mini-xhr/commit/616aa302429520d9f3a69198cf5045210c367a32))
+
 ## [6.0.1](https://github.com/cycjimmy/mini-xhr/compare/v6.0.0...v6.0.1) (2022-03-26)
 
 
