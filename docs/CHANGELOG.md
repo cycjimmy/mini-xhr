@@ -1,3 +1,15 @@
+# [7.0.0](https://github.com/cycjimmy/mini-xhr/compare/v6.1.0...v7.0.0) (2022-08-15)
+
+
+### Features
+
+* remove the upload method; change of request parameter ([2277cf7](https://github.com/cycjimmy/mini-xhr/commit/2277cf70ff5f0e92afb1087085033cfe6fd91da0))
+
+
+### BREAKING CHANGES
+
+* remove the upload method; change of request parameter.
+
 # [6.1.0](https://github.com/cycjimmy/mini-xhr/compare/v6.0.2...v6.1.0) (2022-08-15)
 
 
