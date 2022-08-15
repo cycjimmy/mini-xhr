@@ -8,6 +8,7 @@ import { objectIterate } from './tools';
  * @param ontimeoutCB
  * @param dataType  default 'json'
  * @param data
+ * @param formData
  * @param contentType default 'application/x-www-form-urlencoded; charset=UTF-8'
  * @param headers default {}
  * @param success
@@ -22,6 +23,7 @@ export default ({
   ontimeoutCB = null,
   dataType = 'json',
   data,
+  formData,
   contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
   headers = {},
   success = () => {},
@@ -57,14 +59,20 @@ export default ({
       xhr.setRequestHeader('Accept', '*/*');
   }
 
-  xhr.setRequestHeader('Content-Type', contentType);
+  if (contentType) {
+    xhr.setRequestHeader('Content-Type', contentType);
+  }
 
   // set custom headers
   objectIterate(headers, (value, key) => {
     xhr.setRequestHeader(key, value);
   });
 
-  xhr.send(data);
+  if (formData) {
+    xhr.send(formData);
+  } else {
+    xhr.send(data);
+  }
 
   return xhr;
 };

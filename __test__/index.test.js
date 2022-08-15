@@ -1,5 +1,7 @@
 /* eslint no-undef: off */
 /* eslint import/no-named-as-default-member: off */
+import FormData from 'form-data';
+
 import createXhrMock from '../__mocks__/createXhrMock';
 import {
   responseSuccess, testUrl, statusTextFor404, JsonpErrorTextForTimeout,
@@ -51,6 +53,36 @@ describe('miniXhr', () => {
     });
 
     return miniXhr.post(testUrl)
+      .catch((err) => {
+        expect(err.status).toBe(404);
+        expect(err.statusText).toBe(statusTextFor404);
+      });
+  });
+
+  test('miniXhr.upload() default', () => {
+    createXhrMock({
+      response: responseSuccess,
+    });
+
+    const formData = new FormData();
+    formData.append('testField', 'testValue');
+
+    return miniXhr.upload(testUrl, {
+      formData,
+    })
+      .then((data) => {
+        expect(data).toBe(responseSuccess);
+      });
+  });
+
+  test('miniXhr.upload() works when fail', () => {
+    createXhrMock({
+      readyState: 4,
+      status: 404,
+      statusText: statusTextFor404,
+    });
+
+    return miniXhr.upload(testUrl)
       .catch((err) => {
         expect(err.status).toBe(404);
         expect(err.statusText).toBe(statusTextFor404);

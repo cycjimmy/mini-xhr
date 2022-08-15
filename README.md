@@ -64,6 +64,15 @@ miniXhr.get(url [, settings])
   * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
   * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
 
+#### `miniXhr.upload(url, [,settings])`
+* `url`: [Require][String] The server URL that will be used for the request.
+* The `settings` supports: [Option][Object]
+  * `formData`: [Option][FormData] The fromData to be sent as the request body. Default `undefined`.
+  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
+  * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
+  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
+  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
+
 #### `miniXhr.jsonp(url, [,settings])`
 * `url`: [Require][String] The server URL that will be used for the request.
 * The `settings` supports: [Option][Object]

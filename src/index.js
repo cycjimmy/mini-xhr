@@ -68,6 +68,35 @@ export const post = (
 );
 
 /**
+ * upload
+ * @param url
+ * @param dataType
+ * @param formData
+ * @param headers
+ * @param timeout
+ * @param ontimeoutCB
+ * @returns {Promise<unknown>}
+ */
+export const upload = (url, {
+  dataType = 'json', formData, headers = {}, timeout = 0, ontimeoutCB = null,
+} = {}) => Promise.resolve().then(
+  () => new Promise((resolve, reject) => {
+    _XMLHttpRequest({
+      method: 'POST',
+      url,
+      dataType,
+      contentType: '',
+      formData,
+      headers,
+      timeout,
+      ontimeoutCB,
+      success: (res) => resolve(res),
+      fail: (err) => reject(err),
+    });
+  }),
+);
+
+/**
  * jsonp
  * @param url
  * @param data
@@ -131,5 +160,6 @@ export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
 export default {
   get,
   post,
+  upload,
   jsonp,
 };
