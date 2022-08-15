@@ -13,26 +13,26 @@ export const objectIterate = (obj, fn) => {
 };
 
 /**
- * Data String Make Up
- * @param data
+ * Params String Make Up
+ * @param params
  * @returns {string}
  */
-export const dataStringMakeUp = (data = {}) => {
+export const paramsStringMakeUp = (params = {}) => {
   // set data string
-  let sData = '';
+  let sParams = '';
 
-  objectIterate(data, (value, key) => {
+  objectIterate(params, (value, key) => {
     let prefix = '';
 
-    if (sData) {
+    if (sParams) {
       // not first key
       prefix = '&';
     }
 
-    sData += `${prefix + key}=${value}`;
+    sParams += `${prefix + key}=${value}`;
   });
 
-  return sData;
+  return sParams;
 };
 
 /**

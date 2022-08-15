@@ -1,31 +1,37 @@
 import _XMLHttpRequest from './_XMLHttpRequest';
-import { dataStringMakeUp, getGlobal } from './tools';
+import { paramsStringMakeUp, getGlobal } from './tools';
 
 /**
  * get
  * @param url
  * @param dataType
- * @param data
- * @param contentType
+ * @param params
  * @param headers
+ * @param contentType
+ * @param responseType
  * @param timeout
  * @param ontimeoutCB
- * @returns {Promise<any | never>}
+ * @returns {Promise<unknown>}
  */
 export const get = (
   url,
   {
-    dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null,
+    params = {},
+    headers = {},
+    contentType,
+    responseType = 'json',
+    timeout = 0,
+    ontimeoutCB = null,
   } = {},
 ) => Promise.resolve().then(
   () => new Promise((resolve, reject) => {
     _XMLHttpRequest({
       method: 'GET',
       url,
-      dataType,
+      params,
       contentType,
-      data: dataStringMakeUp(data),
       headers,
+      responseType,
       timeout,
       ontimeoutCB,
       success: (res) => resolve(res),
@@ -37,57 +43,39 @@ export const get = (
 /**
  * post
  * @param url
- * @param dataType
+ * @param params
  * @param data
- * @param contentType
+ * @param dataType
  * @param headers
+ * @param contentType
+ * @param responseType
  * @param timeout
  * @param ontimeoutCB
- * @returns {Promise<any | never>}
+ * @returns {Promise<unknown>}
  */
 export const post = (
   url,
   {
-    dataType = 'json', data = {}, headers = {}, contentType, timeout = 0, ontimeoutCB = null,
+    params = {},
+    data = {},
+    dataType = 'json',
+    headers = {},
+    contentType,
+    responseType = 'json',
+    timeout = 0,
+    ontimeoutCB = null,
   } = {},
 ) => Promise.resolve().then(
   () => new Promise((resolve, reject) => {
     _XMLHttpRequest({
       method: 'POST',
       url,
+      params,
+      data,
       dataType,
+      headers,
       contentType,
-      data: dataStringMakeUp(data),
-      headers,
-      timeout,
-      ontimeoutCB,
-      success: (res) => resolve(res),
-      fail: (err) => reject(err),
-    });
-  }),
-);
-
-/**
- * upload
- * @param url
- * @param dataType
- * @param formData
- * @param headers
- * @param timeout
- * @param ontimeoutCB
- * @returns {Promise<unknown>}
- */
-export const upload = (url, {
-  dataType = 'json', formData, headers = {}, timeout = 0, ontimeoutCB = null,
-} = {}) => Promise.resolve().then(
-  () => new Promise((resolve, reject) => {
-    _XMLHttpRequest({
-      method: 'POST',
-      url,
-      dataType,
-      contentType: '',
-      formData,
-      headers,
+      responseType,
       timeout,
       ontimeoutCB,
       success: (res) => resolve(res),
@@ -99,11 +87,11 @@ export const upload = (url, {
 /**
  * jsonp
  * @param url
- * @param data
+ * @param params
  * @param timeout
  * @returns {Promise<any | never>}
  */
-export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
+export const jsonp = (url, { params = {}, timeout = 5e3 } = {}) => {
   const jsonpNameSpace = getGlobal();
   const STR_ERROR = 'error';
   const STR_TIMEOUT = 'timeout';
@@ -112,7 +100,7 @@ export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
     () => new Promise((resolve, reject) => {
       const oHead = document.querySelector('head');
       const oScript = document.createElement('script');
-      const sData = dataStringMakeUp(data);
+      const sParams = paramsStringMakeUp(params);
 
       oScript.src = url;
       oScript.type = 'text/javascript';
@@ -132,19 +120,17 @@ export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
       };
 
       // set oScript.src
-      if (sData) {
-        oScript.src += `?${sData}&callback=${callbackName}`;
+      if (sParams) {
+        oScript.src += `?${sParams}&callback=${callbackName}`;
       } else {
         oScript.src += `?callback=${callbackName}`;
       }
 
       // timeout handle
-      if (timeout) {
-        oScript.timer = setTimeout(() => {
-          clearScript();
-          reject(STR_TIMEOUT);
-        }, timeout);
-      }
+      oScript.timer = setTimeout(() => {
+        clearScript();
+        reject(STR_TIMEOUT);
+      }, timeout);
 
       oScript.addEventListener('error', () => {
         clearScript();
@@ -160,6 +146,5 @@ export const jsonp = (url, { data = {}, timeout = 5e3 } = {}) => {
 export default {
   get,
   post,
-  upload,
   jsonp,
 };

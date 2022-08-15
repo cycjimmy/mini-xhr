@@ -1,4 +1,4 @@
-import { objectIterate } from './tools';
+import { objectIterate, paramsStringMakeUp } from './tools';
 
 /**
  * XMLHttpRequest
@@ -6,31 +6,39 @@ import { objectIterate } from './tools';
  * @param url
  * @param timeout
  * @param ontimeoutCB
- * @param dataType  default 'json'
+ * @param params
+ * @param dataType 'json'(default) || 'formData' || 'text'
  * @param data
  * @param formData
- * @param contentType default 'application/x-www-form-urlencoded; charset=UTF-8'
+ * @param responseType 'arraybuffer' || 'document' || 'json'(default) ||
+ *                     'text' || 'stream' || 'blob'
+ * @param contentType default 'application/json; charset=UTF-8'
  * @param headers default {}
  * @param success
  * @param fail
  * @returns {XMLHttpRequest}
- * @private
  */
 export default ({
   method = 'GET',
   url,
   timeout = 0,
   ontimeoutCB = null,
+  params = {},
   dataType = 'json',
   data,
-  formData,
-  contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
+  responseType = 'json',
+  contentType = 'application/json; charset=UTF-8',
   headers = {},
   success = () => {},
   fail = () => {},
 }) => {
   const xhr = new XMLHttpRequest();
-  xhr.open(method, method === 'GET' && data ? `${url}?${data}` : url, true);
+  const sParams = paramsStringMakeUp(params);
+  xhr.open(
+    method,
+    sParams ? `${url}?${paramsStringMakeUp(params)}` : url,
+    true,
+  );
   xhr.onreadystatechange = () => {
     if (xhr.readyState !== 4) {
       return;
@@ -49,15 +57,7 @@ export default ({
     xhr.ontimeout = ontimeoutCB;
   }
 
-  switch (dataType) {
-    case 'json':
-      xhr.responseType = 'json';
-      xhr.setRequestHeader('Accept', 'application/json');
-      break;
-
-    default:
-      xhr.setRequestHeader('Accept', '*/*');
-  }
+  xhr.responseType = responseType;
 
   if (contentType) {
     xhr.setRequestHeader('Content-Type', contentType);
@@ -68,10 +68,20 @@ export default ({
     xhr.setRequestHeader(key, value);
   });
 
-  if (formData) {
-    xhr.send(formData);
-  } else {
-    xhr.send(data);
+  switch (dataType) {
+    case 'json':
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.send(JSON.stringify(data));
+      break;
+
+    case 'text':
+    case 'formData':
+      xhr.setRequestHeader('Accept', '*/*');
+      xhr.send(data);
+      break;
+
+    default:
+      xhr.send(data);
   }
 
   return xhr;

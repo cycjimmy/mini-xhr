@@ -47,36 +47,44 @@ miniXhr.get(url [, settings])
 #### `miniXhr.get(url, [,settings])`
 * `url`: [Require][String] The server URL that will be used for the request.
 * The `settings` supports: [Option][Object]
-  * `data`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
-  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
-  * `contentType`: [Option][String] Content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `params`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
+  * `responseType`: [Option][String] The type of data that the server will respond with. Choose one of the options:
+    * `'arraybuffer'`
+    * `'document'`
+    * `'json'`(default)
+    * `'text'`
+    * `'stream'`
+    * `'blob'`
   * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
+  * `contentType`: [Option][String] Content type. Default `'application/json; charset=UTF-8'`.
   * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
   * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
   
 #### `miniXhr.post(url, [,settings])`
 * `url`: [Require][String] The server URL that will be used for the request.
 * The `settings` supports: [Option][Object]
-  * `data`: [Option][Object] The key-value pair for the data to be sent as the request body. Default `{}`.
-  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
-  * `contentType`: [Option][String] Content type. Default `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `params`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
+  * `data`: [Option][Object|FormData|String] The data to be sent as the request body. Default `{}`.
+  * `dataType`: [Option][String] The type of the data to be sent as the request body. Choose one of the options:
+    * `'json'`(default)
+    * `'formData'`
+    * `'text'`
+  * `responseType`: [Option][String] The type of data that the server will respond with. Choose one of the options:
+    * `'arraybuffer'`
+    * `'document'`
+    * `'json'`(default)
+    * `'text'`
+    * `'stream'`
+    * `'blob'`
   * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
-  * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
-
-#### `miniXhr.upload(url, [,settings])`
-* `url`: [Require][String] The server URL that will be used for the request.
-* The `settings` supports: [Option][Object]
-  * `formData`: [Option][FormData] The fromData to be sent as the request body. Default `undefined`.
-  * `dataType`: [Option][String] The type of data that the server will respond with. Default `'json'`.
-  * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
+  * `contentType`: [Option][String] Content type. Default `'application/json; charset=UTF-8'`.
   * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
   * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
 
 #### `miniXhr.jsonp(url, [,settings])`
 * `url`: [Require][String] The server URL that will be used for the request.
 * The `settings` supports: [Option][Object]
-  * `data`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
+  * `params`: [Option][Object] The key-value pair for the URL parameters to be sent with the request. Default `{}`.
   * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `5000`.
 
 #### Handling Errors
@@ -108,7 +116,7 @@ miniXhr.jsonp('/getData')
 <script src="mini-xhr.umd.min.js"></script>
 <script>
   miniXhr.jsonp('/getData', {
-    data: {
+    params: {
       key1: 'value1',
       key2: 'value2',
     }
@@ -124,7 +132,7 @@ miniXhr.jsonp('/getData')
 
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@6/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@7/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->

@@ -130,7 +130,7 @@
 
       case 'getSuccessAdvance':
         miniXhr.get(`/getSuccess`, {
-          data: {
+          params: {
             a: 1,
             b: 2
           },
@@ -201,7 +201,7 @@
       case 'jsonpSuccess':
       case 'jsonpFail':
         miniXhr.jsonp(`/${buttonTip}`, {
-          data: {
+          params: {
             a: 1,
             b: 2
           }

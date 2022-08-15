@@ -47,36 +47,44 @@ miniXhr.get(url [, settings])
 #### `miniXhr.get(url, [,settings])`
 * `url`: [必选][String] 用于请求的服务器URL.
 * `settings`: [可选][Object] 支持以下设定.
-  * `data`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
-  * `dataType`: [可选][String] 服务器响应的数据类型. 默认为 `'json'`.
-  * `contentType`: [可选][String] 内容类型. 默认为 `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `params`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
+  * `responseType`: [可选][String] 服务器响应的数据类型. 可选以下值:
+    * `'arraybuffer'`
+    * `'document'`
+    * `'json'`(默认)
+    * `'text'`
+    * `'stream'`
+    * `'blob'`
   * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
+  * `contentType`: [可选][String] 内容类型. 默认为 `'application/json; charset=UTF-8'`.
   * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
   * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
   
 #### `miniXhr.post(url, [,settings])`
 * `url`: [必选][String] 用于请求的服务器URL.
 * `settings`: [可选][Object] 支持以下设定.
-  * `data`: [可选][Object] 作为请求主体一起发送的数据(以键值对形式设定). 默认为 `{}`.
-  * `dataType`: [可选][String] 服务器响应的数据类型. 默认为 `'json'`.
-  * `contentType`: [可选][String] 内容类型. 默认为 `'application/x-www-form-urlencoded; charset=UTF-8'`.
+  * `params`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
+  * `data`: [可选][Object|FormData|String] 作为请求主体一起发送的数据. 默认为 `{}`.
+  * `dataType`: [可选][String] 发送数据的类型. 可选以下值:
+    * `'json'`(默认)
+    * `'formData'`
+    * `'text'`
+  * `responseType`: [可选][String] 服务器响应的数据类型. 可选以下值:
+    * `'arraybuffer'`
+    * `'document'`
+    * `'json'`(默认)
+    * `'text'`
+    * `'stream'`
+    * `'blob'`
   * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
-  * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
-  * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
-
-#### `miniXhr.upload(url, [,settings])`
-* `url`: [必选][String] 用于请求的服务器URL.
-* `settings`: [可选][Object] 支持以下设定.
-  * `dataType`: [可选][String] 服务器响应的数据类型. 默认为 `'json'`.
-  * `formData`: [可选][FormData] 作为请求主体一起发送的数据(以FromData形式设定). 默认为 `undefined`.
-  * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
+  * `contentType`: [可选][String] 内容类型. 默认为 `'application/json; charset=UTF-8'`.
   * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
   * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
 
 #### `miniXhr.jsonp(url, [,settings])`
 * `url`: [必选][String] 用于请求的服务器URL.
 * `settings`: [可选][Object] 支持以下设定.
-  * `data`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
+  * `params`: [可选][Object] 与请求一起发送的URL参数(以键值对形式设定). 默认为 `{}`.
   * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `5000`.
 
 #### 错误处理
@@ -108,7 +116,7 @@ miniXhr.jsonp('/getData')
 <script src="mini-xhr.umd.min.js"></script>
 <script>
   miniXhr.jsonp('/getData', {
-    data: {
+    params: {
       key1: 'value1',
       key2: 'value2',
     }
@@ -124,7 +132,7 @@ miniXhr.jsonp('/getData')
 
 使用CDN，请在HTML中添加:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@6/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@7/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->

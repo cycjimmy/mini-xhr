@@ -27,7 +27,11 @@ describe('miniXhr', () => {
       statusText: statusTextFor404,
     });
 
-    return miniXhr.get(testUrl)
+    return miniXhr.get(testUrl, {
+      params: {
+        a: 'a',
+      },
+    })
       .catch((err) => {
         expect(err.status).toBe(404);
         expect(err.statusText).toBe(statusTextFor404);
@@ -59,7 +63,7 @@ describe('miniXhr', () => {
       });
   });
 
-  test('miniXhr.upload() default', () => {
+  test('miniXhr.post() send formData', () => {
     createXhrMock({
       response: responseSuccess,
     });
@@ -67,22 +71,27 @@ describe('miniXhr', () => {
     const formData = new FormData();
     formData.append('testField', 'testValue');
 
-    return miniXhr.upload(testUrl, {
-      formData,
+    return miniXhr.post(testUrl, {
+      data: formData,
+      dataType: 'formData',
+      contentType: '',
     })
       .then((data) => {
         expect(data).toBe(responseSuccess);
       });
   });
 
-  test('miniXhr.upload() works when fail', () => {
+  test('miniXhr.post() send text', () => {
     createXhrMock({
       readyState: 4,
       status: 404,
       statusText: statusTextFor404,
     });
 
-    return miniXhr.upload(testUrl)
+    return miniXhr.post(testUrl, {
+      data: 'text',
+      dataType: 'text',
+    })
       .catch((err) => {
         expect(err.status).toBe(404);
         expect(err.statusText).toBe(statusTextFor404);
@@ -95,7 +104,7 @@ describe('miniXhr', () => {
   });
 
   test('miniXhr.jsonp() works when timeout', () => miniXhr.jsonp(testUrl, {
-    data: { a: 1 },
+    params: { a: 1 },
     timeout: 2e3,
   })
     .catch((err) => {
