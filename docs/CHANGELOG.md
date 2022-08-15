@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/cycjimmy/mini-xhr/compare/v6.0.2...v6.1.0) (2022-08-15)
+
+
+### Features
+
+* add miniXhr.upload() methods ([acaeba7](https://github.com/cycjimmy/mini-xhr/commit/acaeba764332730047d4e4443ab7dceb3ca06b1e))
+
 ## [6.0.2](https://github.com/cycjimmy/mini-xhr/compare/v6.0.1...v6.0.2) (2022-06-21)
 
 
