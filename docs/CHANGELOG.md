@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/cycjimmy/mini-xhr/compare/v7.0.0...v7.0.1) (2024-07-17)
+
+
+### Bug Fixes
+
+* upgrade rollup to v4 ([be07eaa](https://github.com/cycjimmy/mini-xhr/commit/be07eaae4f9ed64021fdc77a5db4596483bfb5e1))
+
 # [7.0.0](https://github.com/cycjimmy/mini-xhr/compare/v6.1.0...v7.0.0) (2022-08-15)
 
 

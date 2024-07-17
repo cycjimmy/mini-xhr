@@ -1,6 +1,6 @@
 {
   "name": "@cycjimmy/mini-xhr",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "A very lightweight javascript library for HTTP requests.",
   "type": "module",
   "main": "dist/mini-xhr.cjs",
