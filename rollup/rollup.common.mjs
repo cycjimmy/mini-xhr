@@ -4,7 +4,7 @@ import eslint from '@rollup/plugin-eslint';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 import myBanner from '@cycjimmy/config-lib/esm/chore/myBanner.js';
 import midlineToCamel from '@cycjimmy/awesome-js-funcs/esm/string/midlineToCamel.js';
