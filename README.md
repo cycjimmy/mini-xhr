@@ -1,10 +1,10 @@
 # Mini XHR
-![][workflows-badge-image]
+![Test CI status][workflows-badge-image]
 [![libraries dependency status][libraries-status-image]][libraries-status-url]
 [![libraries sourcerank][libraries-sourcerank-image]][libraries-sourcerank-url]
 [![Coverage Status][coverage-image]][coverage-url]
 [![Release date][release-date-image]][release-url]
-[![rollup][rollup-image]][rollup-url]
+[![vite][vite-image]][vite-url]
 [![semantic-release][semantic-image]][semantic-url]
 [![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
@@ -29,19 +29,31 @@ $ yarn add @cycjimmy/mini-xhr
 
 ## Usage
 ```javascript
-import miniXhr from '@cycjimmy/mini-xhr';
+import miniXhr from '@cycjimmy/mini-xhr'
 
-# OR
-const miniXhr = require('@cycjimmy/mini-xhr');
-
-miniXhr.get(url [, settings])
+miniXhr.get('/getData')
   .then((data) => {
     // handle data
   })
   .catch((err) => {
-    // handle error
-  });
+    console.error(err) // handle error
+  })
 ```
+
+### Module format
+Since v8 the package is **ESM only**: `main`, `module` and `exports` (`import` / `default`) all point to `dist/mini-xhr.esm.js`, while `dist/mini-xhr.umd.min.js` is still published for `<script>` tags and CDNs (it exposes the `miniXhr` global).
+
+The CommonJS artifact (`dist/mini-xhr.cjs`), the `require` export condition and the `package.cjs` shim were removed, so `require('@cycjimmy/mini-xhr')` no longer resolves. From CommonJS, load it with a dynamic import (top-level `await` is not available there); from a classic script, use the UMD bundle below:
+
+```javascript
+import('@cycjimmy/mini-xhr')
+  .then(({ default: miniXhr }) => {
+    // use miniXhr here
+  })
+  .catch(console.error)
+```
+
+The build targets ES2015, so the previous ES5/IE transpilation guarantees are gone.
 
 ### miniXhr supports the following methods:
 #### `miniXhr.get(url, [,settings])`
@@ -58,8 +70,8 @@ miniXhr.get(url [, settings])
   * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
   * `contentType`: [Option][String] Content type. Default `'application/json; charset=UTF-8'`.
   * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
-  
+  * `ontimeoutCB`: [Option][Function] The time-out callback function. Default `null`.
+
 #### `miniXhr.post(url, [,settings])`
 * `url`: [Require][String] The server URL that will be used for the request.
 * The `settings` supports: [Option][Object]
@@ -79,7 +91,7 @@ miniXhr.get(url [, settings])
   * `headers`: [Option][Object] The key-value pair that custom headers to be sent. Default `{}`.
   * `contentType`: [Option][String] Content type. Default `'application/json; charset=UTF-8'`.
   * `timeout`: [Option][Number] The number of milliseconds before the request times out. A value of 0 means there will be no timeout. Default `0`.
-  * `timeoutCB`: [Option][Function] The time-out callback function. Default `null`.
+  * `ontimeoutCB`: [Option][Function] The time-out callback function. Default `null`.
 
 #### `miniXhr.jsonp(url, [,settings])`
 * `url`: [Require][String] The server URL that will be used for the request.
@@ -95,9 +107,9 @@ miniXhr.get('/getData')
     // data handle
   })
   .catch((err) => {
-    console.log(err.statusText);  // the text of the response status
-    console.log(err.status);      // the numerical HTTP status code
-  });
+    console.log(err.statusText) // the text of the response status
+    console.log(err.status) // the numerical HTTP status code
+  })
 ```
 
 ##### JSONP
@@ -107,8 +119,8 @@ miniXhr.jsonp('/getData')
     // data handle
   })
   .catch((err) => {
-    console.log(err);  // return 'error' or 'timeout'
-  });
+    console.log(err) // return 'error' or 'timeout'
+  })
 ```
 
 ### Use in browser: E.g.
@@ -132,7 +144,7 @@ miniXhr.jsonp('/getData')
 
 To use via a CDN include this in your html:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@7/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@8/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->
@@ -159,8 +171,8 @@ To use via a CDN include this in your html:
 [release-date-image]: https://img.shields.io/github/release-date/cycjimmy/mini-xhr
 [release-url]: https://github.com/cycjimmy/mini-xhr/releases
 
-[rollup-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/mini-xhr/dev/rollup
-[rollup-url]: https://github.com/rollup/rollup
+[vite-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/mini-xhr/dev/vite
+[vite-url]: https://github.com/vitejs/vite
 
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release

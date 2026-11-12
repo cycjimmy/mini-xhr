@@ -1,10 +1,10 @@
 # Mini XHR
-![][workflows-badge-image]
+![Test CI status][workflows-badge-image]
 [![libraries dependency status][libraries-status-image]][libraries-status-url]
 [![libraries sourcerank][libraries-sourcerank-image]][libraries-sourcerank-url]
 [![Coverage Status][coverage-image]][coverage-url]
 [![Release date][release-date-image]][release-url]
-[![rollup][rollup-image]][rollup-url]
+[![vite][vite-image]][vite-url]
 [![semantic-release][semantic-image]][semantic-url]
 [![jest][jest-image]][jest-url]
 [![npm license][license-image]][download-url]
@@ -29,19 +29,31 @@ $ yarn add @cycjimmy/mini-xhr
 
 ## 使用
 ```javascript
-import miniXhr from '@cycjimmy/mini-xhr';
+import miniXhr from '@cycjimmy/mini-xhr'
 
-# 或者
-const miniXhr = require('@cycjimmy/mini-xhr');
-
-miniXhr.get(url [, settings])
+miniXhr.get('/getData')
   .then((data) => {
     // 数据处理
   })
   .catch((err) => {
-    // 错误处理
-  });
+    console.error(err) // 错误处理
+  })
 ```
+
+### 模块格式
+自 v8 起本包为 **纯 ESM**：`main`、`module` 和 `exports`（`import` / `default`）全部指向 `dist/mini-xhr.esm.js`，同时仍发布 `dist/mini-xhr.umd.min.js` 供 `<script>` 标签和 CDN 使用（挂载 `miniXhr` 全局变量）。
+
+CommonJS 产物（`dist/mini-xhr.cjs`）、`require` 导出条件以及 `package.cjs` 垫片均已移除，因此 `require('@cycjimmy/mini-xhr')` 不再可用。在 CommonJS 中请使用动态导入（该环境不支持顶层 `await`）；传统脚本请使用下方的 UMD 包：
+
+```javascript
+import('@cycjimmy/mini-xhr')
+  .then(({ default: miniXhr }) => {
+    // 在此使用 miniXhr
+  })
+  .catch(console.error)
+```
+
+构建目标为 ES2015，因此不再提供此前的 ES5/IE 转译保证。
 
 ### miniXhr支持以下几种请求方法：
 #### `miniXhr.get(url, [,settings])`
@@ -58,8 +70,8 @@ miniXhr.get(url [, settings])
   * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
   * `contentType`: [可选][String] 内容类型. 默认为 `'application/json; charset=UTF-8'`.
   * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
-  * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
-  
+  * `ontimeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
+
 #### `miniXhr.post(url, [,settings])`
 * `url`: [必选][String] 用于请求的服务器URL.
 * `settings`: [可选][Object] 支持以下设定.
@@ -79,7 +91,7 @@ miniXhr.get(url [, settings])
   * `headers`: [可选][Object] 自定义要发送的请求头(以键值对形式设定). 默认为 `{}`.
   * `contentType`: [可选][String] 内容类型. 默认为 `'application/json; charset=UTF-8'`.
   * `timeout`: [可选][Number] 请求超时前的毫秒数. 设定值为0表示没有不进行超时设定. 默认为 `0`.
-  * `timeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
+  * `ontimeoutCB`: [可选][Function] 自定义超时回调函数. 默认为 `null`.
 
 #### `miniXhr.jsonp(url, [,settings])`
 * `url`: [必选][String] 用于请求的服务器URL.
@@ -95,9 +107,9 @@ miniXhr.get('/getData')
     // 数据处理
   })
   .catch((err) => {
-    console.log(err.statusText);  // 响应状态文本
-    console.log(err.status);      // HTTP状态码
-  });
+    console.log(err.statusText) // 响应状态文本
+    console.log(err.status) // HTTP状态码
+  })
 ```
 
 ##### JSONP
@@ -107,8 +119,8 @@ miniXhr.jsonp('/getData')
     // 数据处理
   })
   .catch((err) => {
-    console.log(err);  // 返回 'error' 或者 'timeout' (字符串)
-  });
+    console.log(err) // 返回 'error' 或者 'timeout' (字符串)
+  })
 ```
 
 ### 在浏览器中使用
@@ -132,7 +144,7 @@ miniXhr.jsonp('/getData')
 
 使用CDN，请在HTML中添加:
 ```text
-<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@7/dist/mini-xhr.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cycjimmy/mini-xhr@8/dist/mini-xhr.umd.min.js"></script>
 ```
 
 <!-- Links: -->
@@ -159,8 +171,8 @@ miniXhr.jsonp('/getData')
 [release-date-image]: https://img.shields.io/github/release-date/cycjimmy/mini-xhr
 [release-url]: https://github.com/cycjimmy/mini-xhr/releases
 
-[rollup-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/mini-xhr/dev/rollup
-[rollup-url]: https://github.com/rollup/rollup
+[vite-image]: https://img.shields.io/github/package-json/dependency-version/cycjimmy/mini-xhr/dev/vite
+[vite-url]: https://github.com/vitejs/vite
 
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
