@@ -1,0 +1,186 @@
+name: Issue Bot
+
+# Rule-based triage for issues: label/reply on newly opened issues, and
+# release the needs-info label once the reporter comes back with details.
+# All untrusted issue content is passed through environment variables (never
+# interpolated into a shell command) so it cannot break out of the workflow.
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+
+# Serialize the per-issue handlers: label checks and replies are not atomic, so
+# parallel edits or comments would answer the reporter twice.
+concurrency:
+  group: issue-triage-${{ github.repository }}-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  triage:
+    name: Triage new issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply triage rules
+        uses: actions/github-script@v9
+        env:
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+          SENDER: ${{ github.event.sender.login }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        with:
+          script: |
+            const issueAuthor = process.env.ISSUE_AUTHOR || '';
+            const commentAuthor = process.env.COMMENT_AUTHOR || '';
+            const sender = process.env.SENDER || '';
+            // Never react to bot activity to avoid loops
+            if ([issueAuthor, commentAuthor, sender].some((login) => login.endsWith('[bot]'))) return;
+            // `issue_comment` also fires for pull requests; only issues are triaged
+            if (context.payload.issue?.pull_request) return;
+            // Only getting back from the reporter counts as engagement: a
+            // maintainer asking for logs must not release the needs-info label
+            const isReporter = sender === issueAuthor;
+
+            const body = process.env.ISSUE_BODY || '';
+            const lower = (process.env.ISSUE_TITLE + '\n' + body).toLowerCase();
+            const issueNumber = context.issue.number;
+            const isCommentEvent = context.payload.comment != null;
+            const isOpened = context.payload.action === 'opened' && !isCommentEvent;
+            const isEdited = context.payload.action === 'edited' && !isCommentEvent;
+
+            const labels = (names) => github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: names,
+            }).catch((error) => {
+              // A label missing from the repository is a configuration problem,
+              // it must not take the whole triage run down with it
+              if (error.status !== 422) throw error;
+              core.warning(`Label missing from the repository: ${names.join(', ')}`);
+            });
+
+            const removeLabel = (name) => github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              name,
+            }).catch((error) => {
+              // The label is already gone, nothing to do
+              if (error.status !== 404) throw error;
+            });
+
+            const hasLabel = async (name) => {
+              const { data } = await github.rest.issues.listLabelsOnIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                per_page: 100,
+              });
+              return data.some((label) => label.name === name);
+            };
+
+            const reply = (message) => github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: message,
+            });
+
+            // Drop only the scaffolding the issue forms generate: their own
+            // "### <label>" headings and the "_No response_" placeholders.
+            // Everything else - including headings, issue references and code
+            // comments written by the reporter - counts as information.
+            const formHeading = /^###\s+(Describe the bug|Version|Environment|Steps to reproduce|Relevant configuration|Expected behavior|Relevant log output|Additional context|Is your feature request related to a problem\?|Describe the solution you'd like|Describe alternatives you've considered)$/i;
+            const userContent = body
+              .split('\n')
+              .map((line) => line.trim())
+              .filter((line) => line && !formHeading.test(line) && !/^_no response_$/i.test(line))
+              .join('\n');
+
+            if (isOpened || isEdited) {
+              // Rule 1: module system errors. mini-xhr is ESM only since v8.
+              if (isOpened && /err_require_esm|require is not defined|commonjs|module\.exports|dynamic import|unexpected token 'export'/.test(lower)) {
+                await labels(['usage']);
+                await reply(
+                  'This looks like a module system problem.\n\n' +
+                  'Since v8 this package is published as ESM only: the CommonJS ' +
+                  'artifact was removed, so `require(\'@cycjimmy/mini-xhr\')` is no ' +
+                  'longer supported. Use a static import:\n\n' +
+                  '```js\n' +
+                  'import miniXhr from \'@cycjimmy/mini-xhr\'\n' +
+                  '```\n\n' +
+                  'or a dynamic import from a CommonJS entry point (top-level ' +
+                  '`await` is not available there):\n\n' +
+                  '```js\n' +
+                  'import(\'@cycjimmy/mini-xhr\').then(({ default: miniXhr }) => {\n' +
+                  '  // use miniXhr here\n' +
+                  '})\n' +
+                  '```\n\n' +
+                  'For projects still on v7, see the migration notes in the ' +
+                  '[README](../blob/main/README.md). If the error persists after ' +
+                  'switching to `import`, please attach the exact error text and ' +
+                  'how the package is imported.'
+                );
+                return;
+              }
+
+              // Rule 2: question about how to use the library
+              if (isOpened && /how (do|to|can i)|usage|example|cors|cross-origin|import mini-xhr|umd/.test(lower)) {
+                await labels(['usage']);
+                await reply(
+                  'This looks like a usage question.\n\n' +
+                  'The [README](../blob/main/README.md) documents the `get`, `post` ' +
+                  'and `jsonp` signatures, the request settings and the browser / CDN ' +
+                  'setup, and [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) explains ' +
+                  'how to run the local demo.\n\n' +
+                  'If that does not answer your question, let us know what you are ' +
+                  'trying to achieve and where you got stuck.'
+                );
+                return;
+              }
+
+              // Rule 3: low-information report (nearly every form field left empty)
+              if (isOpened && userContent.length < 200) {
+                await labels(['needs-info']);
+                await reply(
+                  'Thanks for opening this issue! Unfortunately, there is not enough ' +
+                  'information to investigate it yet. Please edit the issue and add:\n\n' +
+                  '- The `@cycjimmy/mini-xhr` version you are using\n' +
+                  '- The browser (or Node.js) version and how the package is imported\n' +
+                  '- The relevant request configuration\n' +
+                  '- The console error and, for network failures, the request entry ' +
+                  'from the browser devtools\n\n' +
+                  'The issue will be closed automatically if there is no response within 7 days.'
+                );
+              } else if (
+                isEdited
+                && isReporter
+                && context.payload.changes?.body
+                && (await hasLabel('needs-info'))
+              ) {
+                // The reporter came back with details on edit: release the issue
+                // from the 7-day needs-info lifecycle managed by the stale workflow.
+                // A title-only edit says nothing about the missing details.
+                await removeLabel('needs-info');
+                await reply(
+                  'Thanks for the additional details! The `needs-info` label has ' +
+                  'been removed, so this issue is back in the normal review queue.'
+                );
+              }
+              return;
+            }
+
+            // Comment event: a reply from the reporter also counts as engagement
+            if (isCommentEvent && isReporter && (await hasLabel('needs-info'))) {
+              await removeLabel('needs-info');
+              await reply(
+                'Thanks for the reply! The `needs-info` label has been removed, so ' +
+                'this issue is back in the normal review queue.'
+              );
+            }
