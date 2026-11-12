@@ -59,3 +59,7 @@ dist/
 temp/
 coverage/
 .release/
+
+# UMD bundles copied next to the demo page for manual verification
+static/mini-xhr.umd.js
+static/mini-xhr.umd.min.js

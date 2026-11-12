@@ -1,23 +1,8 @@
-import { objectIterate, paramsStringMakeUp } from './tools';
+import { objectIterate, paramsStringMakeUp } from './tools.js'
 
-/**
- * XMLHttpRequest
- * @param method  default 'GET'
- * @param url
- * @param timeout
- * @param ontimeoutCB
- * @param params
- * @param dataType 'json'(default) || 'formData' || 'text'
- * @param data
- * @param formData
- * @param responseType 'arraybuffer' || 'document' || 'json'(default) ||
- *                     'text' || 'stream' || 'blob'
- * @param contentType default 'application/json; charset=UTF-8'
- * @param headers default {}
- * @param success
- * @param fail
- * @returns {XMLHttpRequest}
- */
+// Creates the underlying XMLHttpRequest of a get/post call.
+// Settings: method, url, timeout, ontimeoutCB, params, dataType, data,
+// responseType, contentType, headers, success, fail.
 export default ({
   method = 'GET',
   url,
@@ -32,57 +17,63 @@ export default ({
   success = () => {},
   fail = () => {},
 }) => {
-  const xhr = new XMLHttpRequest();
-  const sParams = paramsStringMakeUp(params);
+  const xhr = new XMLHttpRequest()
+  const sParams = paramsStringMakeUp(params)
   xhr.open(
     method,
-    sParams ? `${url}?${paramsStringMakeUp(params)}` : url,
+    sParams
+      ? `${url}?${paramsStringMakeUp(params)}`
+      : url,
     true,
-  );
+  )
   xhr.onreadystatechange = () => {
     if (xhr.readyState !== 4) {
-      return;
+      return
     }
     if (xhr.status >= 200 && xhr.status < 400) {
-      success(xhr.response);
-    } else {
-      const { statusText, status } = xhr;
-      fail({ statusText: status ? statusText : 'timeout', status });
+      success(xhr.response)
     }
-  };
-
-  xhr.timeout = timeout;
-
-  if (ontimeoutCB) {
-    xhr.ontimeout = ontimeoutCB;
+    else {
+      const { statusText, status } = xhr
+      fail({
+        statusText: status ? statusText : 'timeout',
+        status,
+      })
+    }
   }
 
-  xhr.responseType = responseType;
+  xhr.timeout = timeout
+
+  if (ontimeoutCB) {
+    xhr.ontimeout = ontimeoutCB
+  }
+
+  xhr.responseType = responseType
 
   if (contentType) {
-    xhr.setRequestHeader('Content-Type', contentType);
+    xhr.setRequestHeader('Content-Type', contentType)
   }
 
   // set custom headers
   objectIterate(headers, (value, key) => {
-    xhr.setRequestHeader(key, value);
-  });
+    xhr.setRequestHeader(key, value)
+  })
 
   switch (dataType) {
     case 'json':
-      xhr.setRequestHeader('Accept', 'application/json');
-      xhr.send(JSON.stringify(data));
-      break;
+      xhr.setRequestHeader('Accept', 'application/json')
+      xhr.send(JSON.stringify(data))
+      break
 
     case 'text':
     case 'formData':
-      xhr.setRequestHeader('Accept', '*/*');
-      xhr.send(data);
-      break;
+      xhr.setRequestHeader('Accept', '*/*')
+      xhr.send(data)
+      break
 
     default:
-      xhr.send(data);
+      xhr.send(data)
   }
 
-  return xhr;
-};
+  return xhr
+}
