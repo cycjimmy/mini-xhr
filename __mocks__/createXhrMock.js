@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { jest } from '@jest/globals'
 
 export default ({
   response = '',
@@ -6,28 +6,27 @@ export default ({
   status = 200,
   statusText = '',
 } = {}) => {
-  const open = jest.fn();
-  let onload = jest.fn();
-  let onerror = jest.fn();
-  let setRequestHeader = jest.fn();
+  const open = jest.fn()
+  let onload = jest.fn()
+  let onerror = jest.fn()
+  let setRequestHeader = jest.fn()
 
-  // eslint-disable-next-line func-names
   const send = jest.fn().mockImplementation(function () {
-    onload = this.onload.bind(this);
-    onerror = this.onerror.bind(this);
-    setRequestHeader = this.setRequestHeader.bind(this);
-    this.onreadystatechange();
+    onload = this.onload.bind(this)
+    onerror = this.onerror.bind(this)
+    setRequestHeader = this.setRequestHeader.bind(this)
+    this.onreadystatechange()
 
     if (!this.timeout) {
-      return;
+      return
     }
 
     setTimeout(() => {
       if (this.ontimeout) {
-        this.ontimeout();
+        this.ontimeout()
       }
-    }, this.timeout);
-  });
+    }, this.timeout)
+  })
 
   const xhrMockClass = () => ({
     open,
@@ -39,9 +38,9 @@ export default ({
     readyState,
     status,
     statusText,
-  });
+  })
 
-  window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
+  window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass)
 
-  return xhrMockClass;
-};
+  return xhrMockClass
+}

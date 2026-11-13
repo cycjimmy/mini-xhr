@@ -1,42 +1,42 @@
-/**
- * objectIterate
- * @param obj
- * @param fn
- */
-export const objectIterate = (obj, fn) => {
-  // eslint-disable-next-line no-restricted-syntax
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      fn.call(null, obj[key], key, obj);
-    }
+// Invokes `fn(value, key, obj)` for every own enumerable key of `obj`.
+// `null`/`undefined` are tolerated: callers pass optional settings through
+// unchanged, and a missing object means "nothing to iterate".
+export function objectIterate(obj, fn) {
+  if (obj === null || obj === undefined) {
+    return
   }
-};
 
-/**
- * Params String Make Up
- * @param params
- * @returns {string}
- */
-export const paramsStringMakeUp = (params = {}) => {
+  for (const key of Object.keys(obj)) {
+    fn(obj[key], key, obj)
+  }
+}
+
+// Builds the `a=1&b=2` query string of `params`, or an empty string.
+export function paramsStringMakeUp(params = {}) {
   // set data string
-  let sParams = '';
+  let sParams = ''
 
   objectIterate(params, (value, key) => {
-    let prefix = '';
+    let prefix = ''
 
     if (sParams) {
       // not first key
-      prefix = '&';
+      prefix = '&'
     }
 
-    sParams += `${prefix + key}=${value}`;
-  });
+    sParams += `${prefix + key}=${value}`
+  })
 
-  return sParams;
-};
+  return sParams
+}
 
-/**
- * get Global
- * @returns {any}
- */
-export const getGlobal = () => (typeof window === 'undefined' ? global : window);
+// Returns the object that JSONP callbacks are attached to.
+export function getGlobal() {
+  if (typeof window !== 'undefined') {
+    return window
+  }
+
+  // `globalThis` is ES2020 while the bundle targets ES2015, so keep `global`.
+  // eslint-disable-next-line no-restricted-globals
+  return global
+}

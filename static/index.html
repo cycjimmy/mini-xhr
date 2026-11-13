@@ -4,80 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./index.css">
 
   <title>MiniXhr Test</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-
-      background-color: #0a4f56;
-    }
-
-    .wrapper {
-      -webkit-box-flex: 1;
-      -ms-flex: 1;
-      flex: 1;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-
-      padding: 40px;
-    }
-
-    .title {
-      font-size: 20px;
-      color: white;
-    }
-
-    .buttons-wrapper {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      width: 80vw;
-      margin-top: 30px;
-    }
-
-    .button {
-      -webkit-box-flex: 1;
-      -ms-flex: 1;
-      flex: 1;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      height: 30px;
-      margin: 0 5px;
-
-      font-size: 16px;
-      border: 1px solid white;
-      border-radius: 4px;
-      color: white;
-    }
-  </style>
 </head>
 
 <body>
@@ -110,115 +39,12 @@
   </div>
 </div>
 
+<!--
+  Dev server: this tag is replaced by a module shim that imports `src/` directly
+  (see `vite.config.mjs`). Built demo: place `dist/mini-xhr.umd.js` next to this
+  file and the bundle is loaded instead.
+-->
 <script src="./mini-xhr.umd.js"></script>
-<script>
-  const aButtons = Array.prototype.slice.call(document.querySelectorAll('.button'));
-
-  aButtons.forEach(button => button.addEventListener('click', function () {
-    const buttonTip = button.dataset.tip;
-
-    if (!buttonTip) {
-      return;
-    }
-
-    switch (buttonTip) {
-      case 'getSuccess':
-        miniXhr.get(`/${buttonTip}`)
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'getSuccessAdvance':
-        miniXhr.get(`/getSuccess`, {
-          params: {
-            a: 1,
-            b: 2
-          },
-          headers: {
-            h1: 1,
-            h2: 2
-          }
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'getTimeout':
-        miniXhr.get(`/getSuccess`, {
-          timeout: 500,
-          ontimeoutCB: () => {
-            console.log('timeout');
-          }
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'getFail':
-        miniXhr.get(`/${buttonTip}`)
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'postSuccess':
-        miniXhr.post(`/${buttonTip}`)
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'postSuccessAdvance':
-        miniXhr.post(`/postSuccess`, {
-          data: {
-            a: 1,
-            b: 2
-          },
-          headers: {
-            h1: 1,
-            h2: 2
-          }
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'postTimeout':
-        miniXhr.post(`/postSuccess`, {
-          timeout: 500,
-          ontimeoutCB: () => {
-            console.log('timeout');
-          }
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'postFail':
-        miniXhr.post(`/${buttonTip}`)
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'jsonpSuccess':
-      case 'jsonpFail':
-        miniXhr.jsonp(`/${buttonTip}`, {
-          params: {
-            a: 1,
-            b: 2
-          }
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-
-      case 'jsonpTimeout':
-        miniXhr.jsonp(`/jsonpSuccess`, {
-          timeout: 500,
-        })
-          .then(console.log)
-          .catch(console.error)
-        break;
-    }
-  }));
-</script>
+<script src="./demo.js"></script>
 </body>
 </html>

@@ -1,0 +1,46 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  background-color: #0a4f56;
+}
+
+.wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.title {
+  color: white;
+  font-size: 20px;
+}
+
+.buttons-wrapper {
+  display: flex;
+  width: 80vw;
+  margin-top: 30px;
+}
+
+.button {
+  display: flex;
+  height: 30px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 4px;
+  margin: 0 5px;
+  color: white;
+  font-size: 16px;
+}
