@@ -1,3 +1,19 @@
+# [8.0.0](https://github.com/cycjimmy/mini-xhr/compare/v7.0.1...v8.0.0) (2026-11-13)
+
+
+* feat!: modernize the toolchain, publish ESM-only and automate repository management ([8c9e0b9](https://github.com/cycjimmy/mini-xhr/commit/8c9e0b9530d56d0374ad498c63515b9ce40277dc))
+
+
+### BREAKING CHANGES
+
+* The CommonJS artifact is gone: `dist/mini-xhr.cjs`, the
+`require` export condition and the `package.cjs` shim were removed and `main`
+points at the ESM bundle, so `require('@cycjimmy/mini-xhr')` no longer
+resolves; use `import` or a dynamic import. Builds target ES2015 without
+Babel, which drops the previous ES5/IE transpilation guarantees. The release
+configuration moved from `release.config.cjs` to `release.config.js`, and npm
+publishing now requires a GitHub Actions trusted publisher.
+
 ## [7.0.1](https://github.com/cycjimmy/mini-xhr/compare/v7.0.0...v7.0.1) (2024-07-17)
 
 
