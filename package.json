@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^10.0.0",
-    "@cycjimmy/config-lib": "^3.2.1",
+    "@cycjimmy/config-lib": "^4.0.0",
     "@jest/globals": "^30.1.2",
     "cross-env": "^10.0.0",
     "eslint": "^10.14.0",
